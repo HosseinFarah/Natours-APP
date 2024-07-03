@@ -29966,7 +29966,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "post",
-        url: "http://127.0.0.1:3000/api/v1/users/login",
+        url: "/api/v1/users/login",
         data: {
           email,
           password
@@ -29986,7 +29986,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "get",
-        url: "http://127.0.0.1:3000/api/v1/users/logout"
+        url: "/api/v1/users/logout"
       });
       if (res.data.status === "success") {
         showAlert("success", "Successfully loged out!");
@@ -29996,7 +29996,6 @@ ${o2.vertexSource}`;
         }, 1500);
       }
     } catch (err) {
-      console.log(err);
       showAlert("error", err.response.data.message);
     }
   };
@@ -30004,7 +30003,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "post",
-        url: "http://127.0.0.1:3000/api/v1/users/signup",
+        url: "/api/v1/users/signup",
         data
       });
       if (res.data.status === "success") {
@@ -30015,7 +30014,6 @@ ${o2.vertexSource}`;
         }, 1500);
       }
     } catch (err) {
-      console.log(err);
       showAlert("error", err.response.data.message);
     }
   };
@@ -30023,7 +30021,7 @@ ${o2.vertexSource}`;
   // public/js/userSettings.js
   var userSettings = async (type, data) => {
     try {
-      const url = type === "password" ? "http://127.0.0.1:3000/api/v1/users/updatemypassword" : "http://127.0.0.1:3000/api/v1/users/updateme";
+      const url = type === "password" ? "/api/v1/users/updatemypassword" : "/api/v1/users/updateme";
       const res = await axios_default({
         method: "PATCH",
         url,
@@ -30043,7 +30041,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "POST",
-        url: "http://127.0.0.1:3000/api/v1/users/forgotpassword",
+        url: "/api/v1/users/forgotpassword",
         data: {
           email
         }
@@ -30062,7 +30060,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "PATCH",
-        url: `http://127.0.0.1:3000/api/v1/users/resetpassword/${tokenId}`,
+        url: `/api/v1/users/resetpassword/${tokenId}`,
         data
       });
       if (res.data.status === "success") {
@@ -30085,7 +30083,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "PATCH",
-        url: `http://127.0.0.1:3000/api/v1/users/${userId}`,
+        url: `/api/v1/users/${userId}`,
         data
       });
       if (res.data.status === "success") {
@@ -30102,7 +30100,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "DELETE",
-        url: `http://127.0.0.1:3000/api/v1/users/${userId}`
+        url: `/api/v1/users/${userId}`
       });
       if (res.status === 204) {
         showAlert("success", "User deleted!");
@@ -30151,7 +30149,7 @@ ${o2.vertexSource}`;
   var bookTour = async (tourId) => {
     try {
       const session = await axios_default(
-        `http://127.0.0.1:3000/api/v1/bookings/checkout-session/${tourId}`
+        `/api/v1/bookings/checkout-session/${tourId}`
       );
       await stripe.redirectToCheckout({
         sessionId: session.data.data.session.id
@@ -30166,7 +30164,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "Patch",
-        url: `http://127.0.0.1:3000/api/v1/reviews/${reviewId}`,
+        url: `/api/v1/reviews/${reviewId}`,
         data: {
           review,
           rating,
@@ -30180,7 +30178,6 @@ ${o2.vertexSource}`;
         }, 1e3);
       }
     } catch (err) {
-      console.log(err);
       showAlert("error", err.response.data.message);
     }
   };
@@ -30188,7 +30185,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "delete",
-        url: `http://127.0.0.1:3000/api/v1/reviews/${reviewId}`
+        url: `/api/v1/reviews/${reviewId}`
       });
       if (res.status === 204) {
         showAlert("success", "Review Deleted");
@@ -30206,7 +30203,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "delete",
-        url: `http://127.0.0.1:3000/api/v1/reviews/${reviewId}`
+        url: `/api/v1/reviews/${reviewId}`
       });
       if (res.status === 204) {
         showAlert("success", "Review Succssfully deleted!");
@@ -30215,7 +30212,6 @@ ${o2.vertexSource}`;
         }, 1e3);
       }
     } catch (err) {
-      console.log(err);
       showAlert("error", err.response.data.message);
     }
   };
@@ -30225,7 +30221,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "delete",
-        url: `http://127.0.0.1:3000/api/v1/bookings/${bookingId}`
+        url: `/api/v1/bookings/${bookingId}`
       });
       if (res.status === 204) {
         showAlert("success", "Review Succssfully deleted!");
@@ -30243,7 +30239,7 @@ ${o2.vertexSource}`;
     try {
       const res = await axios_default({
         method: "delete",
-        url: `http://127.0.0.1:3000/api/v1/tours/${tourId}`
+        url: `/api/v1/tours/${tourId}`
       });
       if (res.status === 204) {
         showAlert("success", "Tour Succssfully deleted!");
@@ -30252,7 +30248,6 @@ ${o2.vertexSource}`;
         }, 1e3);
       }
     } catch (err) {
-      console.log(err);
       showAlert("error", err.response.data.message);
     }
   };
@@ -30430,13 +30425,11 @@ ${o2.vertexSource}`;
     });
   }
   var reviewForm = document.querySelector(".review-info");
-  console.log(reviewForm);
   if (reviewForm) {
     reviewForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       document.querySelector(".btn-review").textContent = "Updatting ...";
       const review = document.getElementById("review").value;
-      console.log(review);
       const rating = document.getElementById("rating").value;
       const reviewId = document.getElementById("reviewId").innerHTML;
       const tour = document.getElementById("tourId").innerHTML;

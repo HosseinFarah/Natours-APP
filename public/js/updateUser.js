@@ -6,7 +6,7 @@ export const adminController = async (userId, data) => {
   try {
     const res = await axios({
       method: 'PATCH',
-      url: `http://127.0.0.1:3000/api/v1/users/${userId}`,
+      url: `/api/v1/users/${userId}`,
       data,
     });
     if (res.data.status === 'success') {
@@ -24,7 +24,7 @@ export const DeleteUserByAdmin = async (userId) => {
   try {
     const res = await axios({
       method: 'DELETE',
-      url: `http://127.0.0.1:3000/api/v1/users/${userId}`,
+      url: `/api/v1/users/${userId}`,
     });
     if (res.status === 204) {
       showAlert('success', 'User deleted!');

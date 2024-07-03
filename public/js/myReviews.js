@@ -6,7 +6,7 @@ export const updateReview = async (review, rating, tour, reviewId) => {
   try {
     const res = await axios({
       method: 'Patch',
-      url: `http://127.0.0.1:3000/api/v1/reviews/${reviewId}`,
+      url: `/api/v1/reviews/${reviewId}`,
       data: {
         review,
         rating,
@@ -28,7 +28,7 @@ export const deleteReview = async (reviewId) => {
   try {
     const res = await axios({
       method: 'delete',
-      url: `http://127.0.0.1:3000/api/v1/reviews/${reviewId}`,
+      url: `/api/v1/reviews/${reviewId}`,
     });
     if (res.status === 204) {
       showAlert('success', 'Review Deleted');

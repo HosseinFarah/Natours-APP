@@ -6,8 +6,8 @@ export const userSettings = async (type, data) => {
   try {
     const url =
       type === 'password'
-        ? 'http://127.0.0.1:3000/api/v1/users/updatemypassword'
-        : 'http://127.0.0.1:3000/api/v1/users/updateme';
+        ? '/api/v1/users/updatemypassword'
+        : '/api/v1/users/updateme';
     const res = await axios({
       method: 'PATCH',
       url,
@@ -28,7 +28,7 @@ export const forgetPassword = async (email) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: 'http://127.0.0.1:3000/api/v1/users/forgotpassword',
+      url: '/api/v1/users/forgotpassword',
       data: {
         email,
       },
@@ -48,7 +48,7 @@ export const resetPassword = async (data, tokenId) => {
   try {
     const res = await axios({
       method: 'PATCH',
-      url: `http://127.0.0.1:3000/api/v1/users/resetpassword/${tokenId}`,
+      url: `/api/v1/users/resetpassword/${tokenId}`,
       data,
     });
     if (res.data.status === 'success') {

@@ -6,7 +6,7 @@ export const deleteReviewsByAdmin = async (reviewId) => {
   try {
     const res = await axios({
       method: 'delete',
-      url: `http://127.0.0.1:3000/api/v1/reviews/${reviewId}`,
+      url: `/api/v1/reviews/${reviewId}`,
     });
     if (res.status === 204) {
       showAlert('success', 'Review Succssfully deleted!');

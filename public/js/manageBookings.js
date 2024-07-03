@@ -6,7 +6,7 @@ export const deleteBooking=async bookingId=>{
     try {
         const res = await axios({
           method: 'delete',
-          url: `http://127.0.0.1:3000/api/v1/bookings/${bookingId}`,
+          url: `/api/v1/bookings/${bookingId}`,
         });
         if (res.status === 204) {
           showAlert('success', 'Review Succssfully deleted!');
