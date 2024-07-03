@@ -13,6 +13,6 @@ mongoose
     console.log(err);
   });
 
-app.listen(process.env.PORT, process.env.SERVER, () => {
+app.listen(process.env.PORT||3000, process.env.SERVER, () => {
   console.log(`Server is ruuning on port ${process.env.PORT}...!`);
 });
