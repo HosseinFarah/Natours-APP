@@ -20,7 +20,6 @@ export const updateReview = async (review, rating, tour, reviewId) => {
       }, 1000);
     }
   } catch (err) {
-    console.log(err);
     showAlert('error', err.response.data.message);
   }
 };

@@ -35,7 +35,6 @@ export const logOut = async () => {
       }, 1500);
     }
   } catch (err) {
-    console.log(err);
     showAlert('error', err.response.data.message);
   }
 };
@@ -55,7 +54,6 @@ export const signUp =async (data)=>{
       }, 1500);
     }
   } catch (err) {
-    console.log(err);
     showAlert('error', err.response.data.message);
   }
 }

@@ -15,7 +15,7 @@ export const deleteTourByAdmin= async tourId=>{
           }, 1000);
         }
       } catch (err) {
-        console.log(err);
+
         showAlert('error', err.response.data.message);
       }
 }

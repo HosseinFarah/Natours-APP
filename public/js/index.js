@@ -213,13 +213,11 @@ if (bookTourBtn) {
 }
 // update Review
 const reviewForm = document.querySelector('.review-info');
-console.log(reviewForm);
 if (reviewForm) {
   reviewForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn-review').textContent = 'Updatting ...';
     const review = document.getElementById('review').value;
-    console.log(review);
     const rating = document.getElementById('rating').value;
     const reviewId = document.getElementById('reviewId').innerHTML;
     const tour = document.getElementById('tourId').innerHTML;
