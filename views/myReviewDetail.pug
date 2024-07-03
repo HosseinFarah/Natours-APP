@@ -1,0 +1,32 @@
+extends base
+
+block content
+    style.
+        p.hidden {
+            visibility: hidden;
+        }
+    .container
+        a.btn.btn--white(href='/my-reviews') My Reviews
+        .div
+            p#reviewId.hidden= reviewId
+            p#tourId.hidden= review.tour._id
+            form.form.review-info
+                .form-group
+                    label.form__label(for='review') Review for: #{review.tour.name}
+                    input.form__input#review(type='text' name='review' value=review.review)
+                .form-group
+                    label.form__label(for='rating') rating:
+                    select.form__input#rating(name='rating' required)
+                        option(value=1, selected=review.rating===1) 1
+                        option(value=1.5, selected=review.rating===1.5) 1.5
+                        option(value=2, selected=review.rating===2) 2
+                        option(value=2.5, selected=review.rating===2.5) 2.5
+                        option(value=3, selected=review.rating===3) 3
+                        option(value=3.5, selected=review.rating===3.5) 3.5
+                        option(value=4, selected=review.rating===4) 4
+                        option(value=4.5, selected=review.rating===4.5) 4.5
+                        option(value=5, selected=review.rating===5) 5
+
+                .btn-group
+                    button.btn.btn--green.btn-review(type='submit') Save
+                    a.btn.btn--white(href='/my-reviews') Cancel

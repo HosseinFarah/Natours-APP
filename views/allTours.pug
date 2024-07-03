@@ -1,0 +1,80 @@
+extends base
+
+block head
+    link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", rel="stylesheet")
+    style.
+        /* Custom CSS styles */
+        .user-list tbody td > img {
+            max-width: 50px;
+            float: left;
+            margin-right: 15px;
+        }
+        .table.user-list {
+            font-size: 18px; /* Updated font size */
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table.user-list th, .table.user-list td {
+            padding: 8px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        .table.user-list th {
+            background-color: #f2f2f2;
+        }
+        .table.user-list tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .table.user-list tbody tr:hover {
+            background-color: #e9ecef;
+        }
+        .label {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .label-success {
+            background-color: #28a745;
+            color: #fff;
+        }
+        /* Additional label styles */
+        /* ... */
+
+block content
+    .container
+        .row
+            .col-lg-12
+                .main-box.clearfix
+                    .table-responsive
+                        table.table.table-bordered.table-striped.user-list
+                            thead
+                                tr
+                                    th Tour Name
+                                    th Tour Difficulty
+                                    th Max Group Size
+                                    th Duration
+                                    th Price
+                                    th Tour Date
+                                    th Actions
+                            tbody
+                                each tour in tours  
+                                    tr
+                                        td
+                                            img(src=`/img/tours/${tour.imageCover}`, alt="") 
+                                            span #{tour.name}
+                                        - let difficulty = tour.difficulty.toUpperCase()
+                                        td= difficulty
+                                        td= tour.maxGroupSize
+                                        td= tour.duration
+                                        td= tour.price
+                                        td= new Date(tour.startDates[0]).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+                                        td
+                                            a.table-tour(href=`/tour-info/${tour._id}`)
+                                                span.fa-stack
+                                                    i.fa.fa-square.fa-stack-2x
+                                                    i.fa.fa-pencil.fa-stack-1x.fa-inverse
+                                            a.table-tour-delete(data-tour-Id=`${tour._id}`)
+                                                span.fa-stack
+                                                    i.fa.fa-square.fa-stack-2x
+                                                    i.fa.fa-trash-o.fa-stack-1x.fa-inverse

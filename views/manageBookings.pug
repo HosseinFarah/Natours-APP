@@ -1,0 +1,60 @@
+extends base
+
+block head
+    link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", rel="stylesheet")
+    style.
+        /* Add any additional CSS styles if needed */
+        .user-list tbody td > img {
+            position: relative;
+            max-width: 50px;
+            float: left;
+            margin-right: 15px;
+        }
+        /* Your existing CSS styles */
+
+block content
+    style.
+        p.hidden {
+            visibility: hidden;
+        }
+        .table.user-list {
+            font-size: 15px;
+        }
+    .container
+        .row
+            .col-lg-12
+                .main-box.clearfix
+                    .table-responsive
+                        table.table.user-list
+                            thead
+                                tr
+                                    th BookingId
+                                    th tourname
+                                    th User
+                                    th Price
+                                    th Booking Date
+                                    th.text-center Active
+                                    th Email
+                                    th &nbsp;
+                            tbody
+                                each booking in bookings  
+                                    tr
+                                        td= booking._id  
+                                        td= booking.tour.name   
+                                        td
+                                            img(src=`/img/users/${booking.user.photo}`, alt="")
+                                            a.user-link= booking.user.name
+                                        td= booking.price      
+                                        td= new Date(booking.createdAt).toLocaleString('en-US', { hour12: true }) 
+                                        td.text-center
+                                            span.label.label-success= `${booking.user.active ? 'Active' : 'Inactive'}`
+                                        td= booking.user.email 
+                                        td(style="width: 5%;")
+                                            a.table-booking(href=`/booking-info/${booking._id}`)
+                                                span.fa-stack
+                                                    i.fa.fa-square.fa-stack-2x
+                                                    i.fa.fa-pencil.fa-stack-1x.fa-inverse
+                                            a.table-booking-delete(data-booking-Id=`${booking._id}`)
+                                                span.fa-stack
+                                                    i.fa.fa-square.fa-stack-2x
+                                                    i.fa.fa-trash-o.fa-stack-1x.fa-inverse
