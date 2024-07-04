@@ -41,22 +41,22 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
     },
   });
 });
-/* exports.purchasedTour = async (req, res, next) => {
-  const { tour, user, price } = req.query;
-  if (!user && !tour && !price) return next();
-  await Booking.create({ user, tour, price });
-  res.redirect(req.originalUrl.split('?')[0]);
-};
- */
 
 const purchasedTour = async (session) => {
-  const tour = session.client_reference_id;
-  const user = (await User.findOne({ email: session.customer_email })).id;
-  const price = session.display_items[0].unit_amount / 100;
-  console.log(tour,user,price);
-  await Booking.create({ tour, user, price });
+  try {
+    const tour = session.client_reference_id;
+    const userDoc = await User.findOne({ email: session.customer_email });
+    if (!userDoc) {
+      throw new Error('User not found');
+    }
+    const user = userDoc.id;
+    const price = session.amount_subtotal / 100;
+    console.log(tour, user, price);
+    await Booking.create({ tour, user, price });
+  } catch (error) {
+    console.error('Error creating booking:', error);
+  }
 };
-
 
 exports.webhookCheckout = (req, res, next) => {
   const signature = req.headers['stripe-signature'];
@@ -72,8 +72,17 @@ exports.webhookCheckout = (req, res, next) => {
     return res.status(400).send(`Webhook error: ${err.message}`);
   }
 
-  if (event.type === 'checkout.session.completed')
-  purchasedTour(event.data.object);
+  if (event.type === 'checkout.session.completed') {
+    purchasedTour(event.data.object);
+  }
 
   res.status(200).json({ received: true });
 };
+
+/* exports.purchasedTour = async (req, res, next) => {
+  const { tour, user, price } = req.query;
+  if (!user && !tour && !price) return next();
+  await Booking.create({ user, tour, price });
+  res.redirect(req.originalUrl.split('?')[0]);
+};
+ */
