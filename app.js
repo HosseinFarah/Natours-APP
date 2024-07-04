@@ -14,7 +14,7 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
-const cros = require('cors');
+const cors = require('cors');
 const { webhookCheckout } = require('./controllers/bookingController');
 
 const app = express();
