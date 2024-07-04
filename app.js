@@ -67,6 +67,8 @@ app.use(sanitizer());
 app.use('/api', limiter);
 
 //stripe webhook
+
+app.set('trust proxy', true);
 app.post(
   '/webhook-checkout',
   express.raw({ type: 'application/json' }),

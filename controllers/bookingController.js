@@ -50,7 +50,7 @@ const purchasedTour = async (session) => {
       throw new Error('User not found');
     }
     const user = userDoc.id;
-    const price = session.amount_subtotal / 100;
+    const price = (await Tour.findById(tour)).price;
     console.log(tour, user, price);
     await Booking.create({ tour, user, price });
   } catch (error) {
@@ -66,7 +66,7 @@ exports.webhookCheckout = (req, res, next) => {
     event = stripe.webhooks.constructEvent(
       req.body,
       signature,
-      process.env.STRIPE_SIGNING_SECRET
+      process.env.STRIPE_SIGNING_SECRET,
     );
   } catch (err) {
     return res.status(400).send(`Webhook error: ${err.message}`);
