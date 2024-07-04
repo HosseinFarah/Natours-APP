@@ -22,9 +22,9 @@ const createTokenResult = (req, res, user, statusCode) => {
       Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000,
     ),
     httpOnly: true,
-    secure: true,
+    secure: req.secure||req.headers['x-forwarded-proto']==='https',
   };
-  if (process.env.NODE_ENV === 'development') cookieOptions.secure = false;
+
   res.cookie('jwt', token, cookieOptions);
   res.status(statusCode).json({
     status: 'success',

@@ -72,8 +72,9 @@ app.use(
 );
 
 // Configure trusted proxies (specific to your deployment environment, update as necessary)
-app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal', '192.168.0.0/16', '172.16.0.0/12', '10.0.0.0/8']);
-
+app.enable('trust proxy');
+// Mongo Sanitizer
+app.use(sanitizer())
 // Rate limiting middleware
 const limiter = rateLimiter({
   max: 200, // Max requests per windowMs
