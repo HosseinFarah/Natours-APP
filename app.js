@@ -14,10 +14,13 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
+const cros = require('cros');
+const { webhookCheckout } = require('./controllers/bookingController');
 
 const app = express();
-app.use(cookieParser());
 app.use(compression());
+app.use(cros());
+app.options('*', cros());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -41,6 +44,7 @@ app.use(
     },
   }),
 );
+app.use(cookieParser());
 app.use(xss());
 app.use(
   hpp({
@@ -61,7 +65,11 @@ const limiter = rateLimiter({
 });
 app.use(sanitizer());
 app.use('/api', limiter);
-app.use(express.json());
+
+//stripe webhook
+app.post('/webhook-checkout', express.raw({type:'application/json'}), webhookCheckout);
+
+app.use(express.json({ limit: '10kb' }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');

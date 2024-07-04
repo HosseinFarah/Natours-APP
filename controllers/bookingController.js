@@ -1,5 +1,6 @@
 const catchAsync = require('../utils/catchAsync');
 const Tour = require('./../models/tourModel');
+const User = require('./../models/userModel');
 const Booking = require('./../models/bookingModel');
 const factoryHandller = require('./factoryHandller');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -15,8 +16,8 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     mode: 'payment',
-    client_reference_id: req.user.id,
-    success_url: `${req.protocol}://${req.get('host')}/my-bookings/?tour=${tour._id}&user=${req.user.id}&price=${tour.price}`,
+    client_reference_id: req.params.id,
+    success_url: `${req.protocol}://${req.get('host')}/my-bookings/`,
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
     customer_email: req.user.email,
     line_items: [
@@ -40,10 +41,41 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
     },
   });
 });
-exports.purchasedTour = async (req, res, next) => {
+/* exports.purchasedTour = async (req, res, next) => {
   const { tour, user, price } = req.query;
   if (!user && !tour && !price) return next();
   await Booking.create({ user, tour, price });
   res.redirect(req.originalUrl.split('?')[0]);
 };
+ */
 
+const purchasedTour = async (session) => {
+  const tour = session.client_reference_id;
+  const user = (await User.findOne({ email: session.customer_email }))._id;
+  const price = session.line_items[0].price_data.unit_amount / 100;
+  await Booking.create({ tour, user, price });
+};
+
+exports.webhookCheckout = async (req, res, next) => {
+  const signature = req.headers['stripe-signature'];
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      signature,
+      process.env.STRIPE_SIGNING_SECRET,
+    );
+  } catch (err) {
+    console.log(`⚠️  Webhook signature verification failed.`, err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+  switch (event.type) {
+    case 'checkout.session.completed':
+      const session = event.data.object;
+      purchasedTour(session);
+      break;
+    default:
+      console.log(`Unhandled event type ${event.type}`);
+  }
+  res.status(200).json({ received: true });
+};

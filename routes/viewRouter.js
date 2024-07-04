@@ -23,7 +23,6 @@ const {
   protect,
   restrictTo,
 } = require('../controllers/authController');
-const { purchasedTour } = require('../controllers/bookingController');
 const { getMyReviews } = require('../controllers/reviewController');
 const router = express.Router();
 
@@ -43,7 +42,7 @@ router.get('/user-info/:userId', protect, restrictTo('admin'), getUserByAdmin);
 router.get('/forgetpassword', getForgetpasswordPage);
 router.get('/resetpassword/:tokenId', getResetPasswordPage);
 
-router.get('/my-bookings', protect, purchasedTour, getMyBookings);
+router.get('/my-bookings', protect, getMyBookings);
 router.get('/my-reviews', protect, getMyReviews);
 router.get('/review/:reviewId',protect, getReviewDetail);
 module.exports = router;
