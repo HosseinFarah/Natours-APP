@@ -72,7 +72,7 @@ app.use(
 );
 
 // Configure trusted proxies (specific to your deployment environment, update as necessary)
-app.disable('trust proxy');
+app.set('trust proxy', true);
 // Mongo Sanitizer
 app.use(sanitizer())
 // Rate limiting middleware
