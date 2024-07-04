@@ -19,7 +19,7 @@ const { webhookCheckout } = require('./controllers/bookingController');
 
 const app = express();
 app.use(compression());
-app.use(cros());
+app.use(cors());
 app.options('*', cors());
 app.use(
   helmet.contentSecurityPolicy({
