@@ -43,22 +43,11 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
 });
 
 const purchasedTour = async (session) => {
-  try {
-    const tour = session.client_reference_id;
-    const userDoc = await User.findOne({ email: session.customer_email });
-    if (!userDoc) {
-      throw new Error('User not found');
-    }
-    const user = userDoc.id;
-    const price = (await Tour.findById(tour)).price;
-    console.log('Booking details:', tour, user, price); // Ensure this log statement is reachable
-    await Booking.create({ tour, user, price });
-  } catch (error) {
-    console.error('Error creating booking:', error);
-    throw error; // Make sure to re-throw or handle the error appropriately
-  }
+  const tour = session.client_reference_id;
+  const user = (await User.findOne({ email: session.customer_email })).id;
+  const price = (await Tour.findById(session.client_reference_id)).price;
+  await Booking.create({tour,user,price})
 };
-
 
 exports.webhookCheckout = (req, res, next) => {
   const signature = req.headers['stripe-signature'];
