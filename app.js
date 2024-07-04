@@ -18,9 +18,15 @@ const cors = require('cors');
 const { webhookCheckout } = require('./controllers/bookingController');
 
 const app = express();
+
+// Enable compression for response size optimization
 app.use(compression());
+
+// Enable CORS for all routes
 app.use(cors());
 app.options('*', cors());
+
+// Set security headers with Content Security Policy
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -44,8 +50,14 @@ app.use(
     },
   }),
 );
+
+// Parse cookies
 app.use(cookieParser());
+
+// Prevent XSS attacks
 app.use(xss());
+
+// Prevent HTTP Parameter Pollution attacks
 app.use(
   hpp({
     whitelist: [
@@ -58,42 +70,57 @@ app.use(
     ],
   }),
 );
-app.set('trust proxy', true);
+
+// Configure trusted proxies (specific to your deployment environment, update as necessary)
+app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal', '192.168.0.0/16', '172.16.0.0/12', '10.0.0.0/8']);
+
+// Rate limiting middleware
 const limiter = rateLimiter({
-  max: 200,
-  windowMs: 15*50*1000,
-  message: 'to many attemp! try again after 60s!',
+  max: 200, // Max requests per windowMs
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  message: 'Too many requests from this IP, please try again later.',
 });
-app.use(sanitizer());
 app.use('/api', limiter);
 
-//stripe webhook
-
+// Stripe webhook endpoint
 app.post(
   '/webhook-checkout',
   express.raw({ type: 'application/json' }),
   webhookCheckout,
 );
 
+// Parse incoming requests with JSON payloads
 app.use(express.json({ limit: '10kb' }));
+
+// Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+
+// Serve static files (e.g., CSS, images)
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Set up Pug as the template engine
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
+// Middleware to add timestamp to request object
 app.use((req, res, next) => {
   req.date = new Date().toISOString();
   next();
 });
+
+// Routes
 app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
 
+// Handle invalid paths
 app.all('*', (req, res, next) => {
   next(new AppErr('Invalid Path!', 404));
 });
+
+// Error handling middleware
 app.use(errorController);
 
 module.exports = app;
