@@ -51,12 +51,14 @@ const purchasedTour = async (session) => {
     }
     const user = userDoc.id;
     const price = (await Tour.findById(tour)).price;
-    console.log(tour, user, price);
+    console.log('Booking details:', tour, user, price); // Ensure this log statement is reachable
     await Booking.create({ tour, user, price });
   } catch (error) {
     console.error('Error creating booking:', error);
+    throw error; // Make sure to re-throw or handle the error appropriately
   }
 };
+
 
 exports.webhookCheckout = (req, res, next) => {
   const signature = req.headers['stripe-signature'];
