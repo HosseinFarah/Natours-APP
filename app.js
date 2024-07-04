@@ -58,9 +58,10 @@ app.use(
     ],
   }),
 );
+app.set('trust proxy', true);
 const limiter = rateLimiter({
   max: 200,
-  windowMs: 60000,
+  windowMs: 15*50*1000,
   message: 'to many attemp! try again after 60s!',
 });
 app.use(sanitizer());
@@ -68,7 +69,6 @@ app.use('/api', limiter);
 
 //stripe webhook
 
-app.set('trust proxy', true);
 app.post(
   '/webhook-checkout',
   express.raw({ type: 'application/json' }),
