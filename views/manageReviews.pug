@@ -1,50 +1,5 @@
 extends base
 
-block head
-    link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet")
-    style.
-        /* Additional or modified CSS for user review table */
-        .user-reviews tbody tr:hover td {
-            background-color: #f6f6f6;
-        }
-
-        .user-reviews td.text-center {
-            vertical-align: middle;
-        }
-
-        .user-reviews td img {
-            max-width: 50px;
-            float: left;
-            margin-right: 15px;
-        }
-
-        .user-reviews .label-info {
-            background-color: #5bc0de; /* Example color for rating label */
-            color: #fff;
-            font-size: 1em;
-            padding: 3px 8px;
-            border-radius: 3px;
-        }
-        .user-reviews {
-            font-size: 18px;
-        }
-        .user-reviews a.table-review {
-            font-size: 1em;
-        }
-
-        .user-reviews a.table-review:hover {
-            color: #2aa493;
-        }
-
-        .user-reviews a.table-delete-review {
-            color: #fe635f;
-        }
-
-        .user-reviews a.table-delete-review:hover {
-            color: #dd504c;
-        }
-
-
 block content
     style.
         p.hidden {
@@ -55,31 +10,28 @@ block content
             .col-lg-12
                 .main-box.clearfix
                     .table-responsive
-                        table.table.user-reviews
+                        table.table.table-striped.user-reviews
                             thead
                                 tr
                                     th User
                                     th Tour
                                     th Rating
                                     th Review
-                                    th &nbsp;
+                                    th Actions
                             tbody
                                 each review in reviews
                                     tr
                                         td
-                                            img(src=`/img/users/${review.user.photo}`, alt="")
+                                            img.img-thumbnail(src=`/img/users/${review.user.photo}`, alt="" class="rounded-circle" style="width: 40px; height: 40px;")
                                             a.user-link(href=`/user-info/${review.user._id}`)= review.user.name
                                         td= review.tour.name 
                                         td.text-center
                                             span.label.label-info= review.rating
                                         td= review.review
-                                        td(style="width: 1%;")
-                                            a.table-review(href=`/edit-review/${review._id}`)
-                                                span.fa-stack
-                                                    i.fa.fa-square.fa-stack-2x
-                                                    i.fa.fa-pencil.fa-stack-1x.fa-inverse
-                                            a.table-delete-review(data-review-Id=`${review._id}`)
-                                                span.fa-stack
-                                                    i.fa.fa-square.fa-stack-2x
-                                                    i.fa.fa-trash-o.fa-stack-1x.fa-inverse
-
+                                        td
+                                            a.btn.btn-primary.table-review(href=`/edit-review/${review._id}`, style="width: 80px;") 
+                                                i.fa.fa-pencil.fa-fw
+                                                |  Edit
+                                            a.btn.btn-danger.table-delete-review(data-review-Id=`${review._id}`, style="width: 80px;") 
+                                                i.fa.fa-trash-o.fa-fw
+                                                |  Delete

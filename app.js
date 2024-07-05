@@ -38,6 +38,10 @@ app.use(
         'https://*.cloudflare.com',
         'https://*.stripe.com',
         'https://*.mapbox.com',
+        'https://code.jquery.com',
+        'https://cdn.jsdelivr.net',
+        'https://maxcdn.bootstrapcdn.com',
+        // Add other script sources as needed
       ],
       frameSrc: ["'self'", 'https://*.stripe.com'],
       objectSrc: ["'none'"],
@@ -50,6 +54,7 @@ app.use(
     },
   }),
 );
+
 
 // Parse cookies
 app.use(cookieParser());

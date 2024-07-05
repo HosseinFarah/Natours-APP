@@ -1,14 +1,30 @@
-header.header
-    nav.nav.nav--tours
-        a.nav__el(href='/') All tours
-    .header__logo
-        img(src='/img/logo-white.png' alt='Natours logo')
-    nav.nav.nav--user
-        if user
-            a.nav__el.nav__el--logout Log out
-            a.nav__el(href='/me')
-                img.nav__user-img(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}`)
-                span= user.name?user.name.split(' ')[0]:'' 
-        else    
-            a.nav__el(href='/login') Log in
-            a.nav__el.nav__el--cta(href='/signup') Sign up
+//- Your existing Pug template structure (modified for clarity)
+header
+    style.
+        .nav-link {
+            font-size: 23px !important;
+        }
+        
+    nav.navbar.navbar-expand-lg.navbar-light(style="background-color: #1ca962 !important;")
+        .container
+            a.header__logo(href='/')
+                img.header__logo-img(src='/img/logo-green-round.png' alt='Natours logo' style="height: 2.5rem;")
+            button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            .collapse.navbar-collapse#navbarNav
+                ul.navbar-nav.mr-auto
+                    li.nav-item
+                        a.nav-link(href='/') All tours
+                ul.navbar-nav.ml-auto.nav.nav--user
+                    if user
+                        li.nav-item
+                            a.nav-link(href='/me')
+                                img.rounded-circle(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}` width="30" height="30")
+                                | #{user.name ? user.name.split(' ')[0] : ''}
+                        li.nav-item
+                            a.nav-link.nav__el--logout(href='/logout') Log out
+                    else    
+                        li.nav-item
+                            a.nav-link.nav__el(href='/login' style="background-color: #fff; color: #1ca962;") Log in
+                        li.nav-item
+                            a.nav-link.nav__el.nav__el--cta(href='/signup' style="background-color: #fff; color: #1ca962;") Sign up

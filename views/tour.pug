@@ -1,9 +1,4 @@
 extends base
-block head 
-    //- script(src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js')
-    link(href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet')
-
-
 mixin tourInfo(icon,data)
     .heading-box__detail
         svg.heading-box__icon
@@ -16,6 +11,13 @@ mixin tourDetailes(icon,label,text)
             use(xlink:href=`/img/icons.svg#icon-${icon}`)
         span.overview-box__label= label
         span.overview-box__text= text
+block head
+    //- External stylesheets
+    link(href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' rel='stylesheet')
+    link(href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet')
+    link(rel="stylesheet", href="/css/style.css")
+
+
 block content
     section.section-header
         .header__hero
@@ -25,12 +27,13 @@ block content
         .heading-box
             h1.heading-primary
                 span= tour.name
-            .heading-box__group
+            .heading-box__group.d-flex.justify-content-center
                 +tourInfo('clock',`${tour.duration} days`)
                 +tourInfo('map-pin',`${tour.startLocation.description} days`)
-    section.section-description
-        .overview-box
-            div
+
+    section.section-description.container
+        .overview-box.row
+            .col-md-6
                 .overview-box__group
                     h2.heading-secondary.ma-bt-lg Quick facts
                     - const date = tour.startDates[0].toLocaleDateString('en-US',{year:'numeric', month:'long'})
@@ -39,38 +42,39 @@ block content
                     +tourDetailes('user','Participants',`${tour.maxGroupSize} people`)
                     +tourDetailes('star','Rating',`${tour.ratingsAverage} / 5`)
 
+            .col-md-6
                 .overview-box__group
                     h2.heading-secondary.ma-bt-lg Your tour guides
                     each guide in tour.guides
-                        .overview-box__detail
+                        .overview-box__detail.d-flex.align-items-center.mb-3
                             img.overview-box__img(src=`/img/users/${guide.photo}` alt=`${guide.name}`)
-                            if guide.role === 'lead-guide'
-                                span.overview-box__label Lead guide
-                            if guide.role === 'guide'
-                                span.overview-box__label Tour guide
-                            span.overview-box__text= guide.name
+                            .ml-3
+                                if guide.role === 'lead-guide'
+                                    span.overview-box__label Lead guide
+                                if guide.role === 'guide'
+                                    span.overview-box__label Tour guide
+                                span.overview-box__text= guide.name
 
-
-        .description-box
+        .description-box.mt-5
             h2.heading-secondary.ma-bt-lg About the park camper tour
             - const text = tour.description.split('\n')
             each p in text
                 p.description__text= p
 
-
-    section.section-pictures
-        each image,i in tour.images
-            .picture-box
-                img.picture-box__img(class= `picture-box__img--${i+1}` src=`/img/tours/${image}` alt=`${tour.name- i+1}`)
-
+    section.section-pictures.container
+        .row
+            each image,i in tour.images
+                .col-md-4.mb-4
+                    .picture-box
+                        img.picture-box__img(class= `picture-box__img--${i+1}` src=`/img/tours/${image}` alt=`${tour.name- i+1}`)
 
     section.section-map
         #map.map-data(data-locations=`${JSON.stringify(tour.locations)}`)
 
-    section.section-reviews
-        .reviews
+    section.section-reviews.container.mt-5
+        .reviews.row
             each review in tour.Reviews
-                .reviews__card
+                .reviews__card.col-md
                     .reviews__avatar
                         img.reviews__avatar-img(src=`/img/users/${review.user.photo}` alt=`${review.user.name}`)
                         h6.reviews__user= review.user.name
@@ -79,16 +83,18 @@ block content
                         each star in [1,2,3,4,5]
                             svg.reviews__star(class= `reviews__star--${star<=review.rating?'active':'inactive'}`)
                                 use(xlink:href='/img/icons.svg#icon-star')
-    section.section-cta
-        .cta
+
+    section.section-cta.container.mt-5
+        .cta.text-center
             .cta__img.cta__img--logo
                 img(src='/img/logo-white.png' alt='Natours logo')
-            img.cta__img.cta__img--1(src=`/img/tours/${tour.images[0]}` alt=`${tour.images}`)
-            img.cta__img.cta__img--2(src=`/img/tours/${tour.images[1]}` alt=`${tour.images}`)
+            .d-flex.justify-content-center.mb-4
+                img.cta__img.cta__img--1(src=`/img/tours/${tour.images[0]}` alt=`${tour.images}`)
+                img.cta__img.cta__img--2(src=`/img/tours/${tour.images[1]}` alt=`${tour.images}`)
             .cta__content
                 h2.heading-secondary What are you waiting for?
                 p.cta__text= `${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`
                 if user
-                    button.btn.btn--green.span-all-rows#book-tour(data-tour-Id=`${tour._id}`) Book tour now!
+                    button.btn.btn--green.btn-lg#book-tour(data-tour-Id=`${tour._id}`) Book tour now!
                 else    
-                    a.btn.btn--green.span-all-rows(href='/login') Log in for book this tour!
+                    a.btn.btn--green.btn-lg(href='/login') Log in to book this tour!

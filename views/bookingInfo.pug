@@ -6,33 +6,33 @@ block content
             visibility: hidden;
         }
     .container
-        a.btn.btn--white(href='/manage-bookings') All bookings
+        a.btn.btn--white.btn.btn-outline-secondary(href='/manage-bookings') All bookings
         .user-info
-            input#bookingId.form__input(type='text' name='bookingId' value=booking._id)
-            input#userId.form__input(type='text' name='userId' value=booking.user._id)
+            input#bookingId.form__input.form-control(type='text' name='bookingId' value=booking._id)
+            input#userId.form__input.form-control(type='text' name='userId' value=booking.user._id)
             form.form.form-user-info(action=`/users/${user._id}`, method='POST' enctype='multipart/form-data')
                 .form-group
-                    img.form__user-photo(src=`/img/users/${booking.user.photo}`, alt=`${booking.user.name}`)
-                    input#photo.form__upload(type="file" name="photo" accept='image/*')
+                    img.form__user-photo.img-fluid(src=`/img/users/${booking.user.photo}`, alt=`${booking.user.name}`, class='rounded-circle')
+                    input#photo.form__upload.form-control-file(type="file" name="photo" accept='image/*')
                     label(for='photo') Choose new photo
                 .form-group
                     label.form__label(for='name') Name:
-                    input.form__input#name(type='text' name='name' value=booking.user.name)
+                    input.form__input#name.form-control(type='text' name='name' value=booking.user.name)
                 .form-group
                     label.form__label(for='email') Email:
-                    input.form__input#email(type='email' name='email' value=user.email)
+                    input.form__input#email.form-control(type='email' name='email' value=user.email)
                 .form-group
                     label.form__label(for='bookingId') Booking ID:
-                    input.form__input#bookingId(type='text' name='bookingId' value=booking._id)
+                    input.form__input#bookingId.form-control(type='text' name='bookingId' value=booking._id)
                 .form-group
                     label.form__label(for='tourname') Tour Name:
-                    input.form__input#tourname(type='text' name='tourname' value=booking.tour.name)
+                    input.form__input#tourname.form-control(type='text' name='tourname' value=booking.tour.name)
                 .form-group
                     label.form__label(for='price') Price:
-                    input.form__input#price(type='number' name='price' value=booking.price)
+                    input.form__input#price.form-control(type='number' name='price' value=booking.price)
                 .form-group
                     label.form__label(for='tourId') Tour ID:
-                    input.form__input#tourId(type='text' name='tourId' value=booking.tour._id)
+                    input.form__input#tourId.form-control(type='text' name='tourId' value=booking.tour._id)
                 .btn-group
-                    button.btn.btn--green(type='submit') Save
-                    a.btn.btn--white(href='/manage-bookings') Cancel
+                    button.btn.btn--green.btn.btn-primary(type='submit') Save
+                    a.btn.btn--white.btn.btn-outline-secondary(href='/manage-bookings') Cancel

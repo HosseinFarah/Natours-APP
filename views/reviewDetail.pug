@@ -6,18 +6,18 @@ block content
             visibility: hidden;
         }
     .container
-        a.btn.btn--white(href='/manage-reviews') All Reviews
+        a.btn.btn--white.btn.btn-outline-secondary(href='/manage-reviews') All Reviews
         .div
             p#reviewId.hidden= reviewId
             p#tourId.hidden= review.tour._id
             form.form.review-info
                 .form-group
-                    img(src=`/img/users/${review.user.photo}`, width="150", height="150")
-                    label.form__label(for='review') Review for: #{review.tour.name} by #{review.user.name}
-                    input.form__input#review(type='text' name='review' value=review.review)
+                    img.img-fluid(src=`/img/users/${review.user.photo}`, width="150", height="150")
+                    label.form-control(for='review') Review for: #{review.tour.name} by #{review.user.name}
+                    input.form-control#review(type='text' name='review' value=review.review)
                 .form-group
-                    label.form__label(for='rating') rating:
-                    select.form__input#rating(name='rating' required)
+                    label.form-control(for='rating') Rating:
+                    select.form-control#rating(name='rating' required)
                         option(value=1, selected=review.rating===1) 1
                         option(value=1.5, selected=review.rating===1.5) 1.5
                         option(value=2, selected=review.rating===2) 2
@@ -29,5 +29,5 @@ block content
                         option(value=5, selected=review.rating===5) 5
 
                 .btn-group
-                    button.btn.btn--green.btn-review(type='submit') Save
-                    a.btn.btn--white(href='/manage-reviews') Cancel
+                    button.btn.btn-success.btn.btn-review(type='submit') Save
+                    a.btn.btn--white.btn.btn-outline-secondary(href='/manage-reviews') Cancel

@@ -2,6 +2,7 @@ extends base
 
 block head
     link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", rel="stylesheet")
+    link(href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", rel="stylesheet")
     style.
         /* Add any additional CSS styles if needed */
         .user-list tbody td > img {
@@ -25,36 +26,32 @@ block content
             .col-lg-12
                 .main-box.clearfix
                     .table-responsive
-                        table.table.user-list
-                            thead
+                        table.table.table-bordered.user-list   
+                            thead.thead-dark   
                                 tr
-                                    th BookingId
-                                    th tourname
-                                    th User
-                                    th Price
-                                    th Booking Date
-                                    th.text-center Active
-                                    th Email
-                                    th &nbsp;
+                                    th(scope="col") BookingId    
+                                    th(scope="col") tourname
+                                    th(scope="col") User
+                                    th(scope="col") Price
+                                    th(scope="col") Booking Date
+                                    th(scope="col", class="text-center") Active   
+                                    th(scope="col") Email
+                                    th(scope="col") &nbsp;
                             tbody
                                 each booking in bookings  
                                     tr
                                         td= booking._id  
                                         td= booking.tour.name   
                                         td
-                                            img(src=`/img/users/${booking.user.photo}`, alt="")
+                                            img.img-fluid(src=`/img/users/${booking.user.photo}`, alt="")   
                                             a.user-link= booking.user.name
                                         td= booking.price      
                                         td= new Date(booking.createdAt).toLocaleString('en-US', { hour12: true }) 
                                         td.text-center
-                                            span.label.label-success= `${booking.user.active ? 'Active' : 'Inactive'}`
+                                            span.badge.badge-success= `${booking.user.active ? 'Active' : 'Inactive'}`   
                                         td= booking.user.email 
-                                        td(style="width: 5%;")
-                                            a.table-booking(href=`/booking-info/${booking._id}`)
-                                                span.fa-stack
-                                                    i.fa.fa-square.fa-stack-2x
-                                                    i.fa.fa-pencil.fa-stack-1x.fa-inverse
-                                            a.table-booking-delete(data-booking-Id=`${booking._id}`)
-                                                span.fa-stack
-                                                    i.fa.fa-square.fa-stack-2x
-                                                    i.fa.fa-trash-o.fa-stack-1x.fa-inverse
+                                        td
+                                            a.btn.btn-primary.table-booking(href=`/booking-info/${booking._id}`)  
+                                                span.fa.fa-pencil.fa-inverse
+                                            a.btn.btn-danger.table-booking-delete(data-booking-Id=`${booking._id}`)   
+                                                span.fa.fa-trash-o.fa-inverse

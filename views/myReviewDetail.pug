@@ -6,17 +6,17 @@ block content
             visibility: hidden;
         }
     .container
-        a.btn.btn--white(href='/my-reviews') My Reviews
+        a.btn.btn--white.btn.btn-outline-secondary(href='/my-reviews') My Reviews
         .div
             p#reviewId.hidden= reviewId
             p#tourId.hidden= review.tour._id
             form.form.review-info
                 .form-group
                     label.form__label(for='review') Review for: #{review.tour.name}
-                    input.form__input#review(type='text' name='review' value=review.review)
+                    input.form-control#review(type='text' name='review' value=review.review)
                 .form-group
-                    label.form__label(for='rating') rating:
-                    select.form__input#rating(name='rating' required)
+                    label.form__label(for='rating') Rating:
+                    select.form-control#rating(name='rating' required)
                         option(value=1, selected=review.rating===1) 1
                         option(value=1.5, selected=review.rating===1.5) 1.5
                         option(value=2, selected=review.rating===2) 2
@@ -28,5 +28,5 @@ block content
                         option(value=5, selected=review.rating===5) 5
 
                 .btn-group
-                    button.btn.btn--green.btn-review(type='submit') Save
-                    a.btn.btn--white(href='/my-reviews') Cancel
+                    button.btn.btn--green.btn.btn-primary.btn-review(type='submit') Save
+                    a.btn.btn--white.btn.btn-outline-secondary(href='/my-reviews') Cancel
