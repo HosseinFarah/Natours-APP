@@ -30077,6 +30077,21 @@ ${o2.vertexSource}`;
       showAlert("error", err.response.data.message);
     }
   };
+  var createNewUserByAdmin = async (data) => {
+    try {
+      const res = await axios_default({
+        method: "post",
+        url: "/api/v1/users/",
+        data
+      });
+      if (res.data.status === "success") {
+        showAlert("success", "User Successfully added");
+        location.reload(true);
+      }
+    } catch (err) {
+      showAlert("error", err.response.data.message);
+    }
+  };
 
   // public/js/updateUser.js
   var adminController = async (userId, data) => {
@@ -30272,6 +30287,23 @@ ${o2.vertexSource}`;
       document.getElementById("password").value = "";
       document.getElementById("passwordConfirm").value = "";
       document.querySelector(".btn--signup").textContent = "Signup";
+    });
+  }
+  var createForm = document.querySelector(".form-create-user");
+  if (createForm) {
+    createForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const passwordConfirm = document.getElementById("passwordConfirm").value;
+      const data = {
+        name,
+        email,
+        password,
+        passwordConfirm
+      };
+      await createNewUserByAdmin(data);
     });
   }
   var loginForm = document.querySelector(".form-login");

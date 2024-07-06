@@ -1,0 +1,25 @@
+extends base
+
+block content
+  .container.mt-5
+    a.btn.btn-success.mt-3(href='/manage-users') Back
+    .row.justify-content-center
+      .col-md-6
+        .card
+          .card-header.text-white(style="background: linear-gradient(135deg, #1ca962, #0056b3);")
+            h4.mb-0.text-center Add New User
+          .card-body
+            form.form-create-user
+              .form-group
+                label(for="name") Name
+                input#name.form-control(type="text" name="name" placeholder='Name Family' required)
+              .form-group
+                label(for="email") Email
+                input#email.form-control(type="email" name="email" placeholder='useremail@test.com' required)
+              .form-group
+                label(for="password") Password
+                input#password.form-control(type="password" name="password" placeholder='********' minlength='8'  required)
+              .form-group
+                label(for="confirmPassword") Confirm Password
+                input#passwordConfirm.form-control(type="password" name="passwordConfirm" placeholder='********' minlength='8' required)
+              button.btn.btn-primary.btn-block(type="submit" style="background: linear-gradient(135deg, #1ca962, #0056b3);") Submit

@@ -159,7 +159,7 @@ exports.getAllToursByAdmin = catchAsync(async (req, res, next) => {
     title: 'All Tours',
     tours,
     pagination: {
-      nextPage: tours.length-limit>=page? parseInt(page) + 1:null,
+      nextPage: tours.length - limit >= page ? parseInt(page) + 1 : null,
       prevPage: parseInt(page) - 1 >= 1 ? parseInt(page) - 1 : null,
       limit,
     },
@@ -173,3 +173,8 @@ exports.getTourInfoPageForAdmin = catchAsync(async (req, res, next) => {
     tour,
   });
 });
+exports.getNewUserPage = (req, res, next) => {
+  res.status(200).render('newUser', {
+    title: 'Create New User',
+  });
+};

@@ -65,3 +65,21 @@ export const resetPassword = async (data, tokenId) => {
     showAlert('error', err.response.data.message);
   }
 };
+
+export const createNewUserByAdmin = async (data) => {
+  try {
+    const res = await axios({
+      method: 'post',
+      url: '/api/v1/users/',
+      data,
+    });
+    if (res.data.status === 'success') {
+      showAlert('success', 'User Successfully added');
+      windows.setTimeout(() => {
+        location.reload(true);
+      }, 2000);
+    }
+  } catch (err) {
+    showAlert('error', err.response.data.message);
+  }
+};

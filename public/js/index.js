@@ -1,6 +1,11 @@
 /* eslint-disable */
 import { logIn, logOut, signUp } from './login';
-import { userSettings, forgetPassword, resetPassword } from './userSettings';
+import {
+  userSettings,
+  forgetPassword,
+  resetPassword,
+  createNewUserByAdmin,
+} from './userSettings';
 import { adminController, DeleteUserByAdmin } from './updateUser';
 import { showMap } from './mapbox';
 import { bookTour } from './bookTour';
@@ -29,6 +34,25 @@ if (signupForm) {
     document.getElementById('password').value = '';
     document.getElementById('passwordConfirm').value = '';
     document.querySelector('.btn--signup').textContent = 'Signup';
+  });
+}
+
+// Create New User By ADMIN
+const createForm = document.querySelector('.form-create-user');
+if (createForm) {
+  createForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+    const data = {
+      name,
+      email,
+      password,
+      passwordConfirm,
+    };
+    await createNewUserByAdmin(data)
   });
 }
 
