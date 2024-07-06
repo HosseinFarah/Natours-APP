@@ -21,7 +21,7 @@ block content
         .table.user-list {
             font-size: 15px;
         }
-    .container
+    .container.mt-3
         .row
             .col-lg-12
                 .main-box.clearfix
@@ -55,3 +55,7 @@ block content
                                                 span.fa.fa-pencil.fa-inverse
                                             a.btn.btn-danger.table-booking-delete(data-booking-Id=`${booking._id}`)   
                                                 span.fa.fa-trash-o.fa-inverse
+                            if pagination.prevPage 
+                               a.btn.btn-primary.mt-2.mx-1.mb-2(href=`?page=${pagination.prevPage}&limit=${pagination.limit}`) Previous Page
+                            if pagination.nextPage 
+                               a.btn.btn-success.mt-2.mx-1.mb-2(href=`?page=${pagination.nextPage}&limit=${pagination.limit}`) Next Page

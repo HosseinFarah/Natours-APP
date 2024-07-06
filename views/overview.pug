@@ -60,6 +60,16 @@ block content
         }
 
     .main
+        .container
+            .row
+                .col-md-12.mb-3
+                    form(action="/" method="GET" class="my-4")
+
+                        .input-group
+                            input.form-control#search(type="text" name="search" placeholder="Search tour...")
+                            .input-group-append
+                                button.btn.btn-primary.btn-search(type="submit") Search
+
         .card-container
             each tour, index in tours
                 if index % 3 === 0
@@ -75,7 +85,7 @@ block content
                                                 span= `${tourCol.name} Tour`
 
                                     .card-body
-                                        h4.card-subtitle.mb-2.text-muted= `${tourCol.difficulty} ${tourCol.duration}-day tour`
+                                        h4.card-subtitle.mb-2.text-muted= `${tourCol.difficulty.toUpperCase()} ${tourCol.duration}-Day Tour`
                                         p.card-text= tourCol.summary
                                         .card-data.d-flex.flex-column.align-items-start
                                             .d-flex.justify-content-between(style='width: 100%;')
@@ -93,4 +103,4 @@ block content
                                             br
                                             span.card-footer-value= tourCol.ratingsAverage
                                             span.card-footer-text= ` rating (${tourCol.ratingsQuantity})`
-                                        a.btn.btn-success.btn-sm(href=`/tour/${tourCol.slug}`) Details
+                                        a.btn.btn-success.btn(href=`/tour/${tourCol.slug}`) Details

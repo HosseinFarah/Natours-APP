@@ -19,11 +19,11 @@ block content
                                     th Id
                                     th Actions
                             tbody
-                                each user in users
+                                each user,i in users
                                     tr
                                         td
                                             img(src=`/img/users/${user.photo}`, alt="" class="rounded-circle" style="width: 40px; height: 40px;")
-                                            a.user-link= user.name
+                                            a.user-link.mx-2= user.name
                                         td= user.role
                                         td.text-center
                                             span.badge.badge-success= `${user.active ? 'Active' : 'Inactive'}`
@@ -33,6 +33,11 @@ block content
                                             a.btn.btn-primary.table-link(href=`/user-info/${user._id}`)
                                                 i.fa.fa-pencil-alt.fa-lg
                                                 | Edit
-                                            a.btn.btn-danger.table-link.danger(data-user-Id=`${user._id}`)
+                                            a.btn.btn-danger.mx-1.table-link.danger(data-user-Id=`${user._id}`)
                                                 i.fa.fa-trash-alt.fa-lg
                                                 | Delete
+                            // Pagination Links
+                            if pagination.prevPage
+                                a.btn.btn-primary.mt-3.mb-1.mx-1(href=`?page=${pagination.prevPage}&limit=${pagination.limit}`) Previous Page
+                            if pagination.nextPage
+                                a.btn.btn-success.mt-3.mb-1(href=`?page=${pagination.nextPage}&limit=${pagination.limit}`) Next Page

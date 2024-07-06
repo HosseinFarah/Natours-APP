@@ -33,7 +33,7 @@ block content
 
     section.section-description.container
         .overview-box.row
-            .col-md-6
+            .col-md-12
                 .overview-box__group
                     h2.heading-secondary.ma-bt-lg Quick facts
                     - const date = tour.startDates[0].toLocaleDateString('en-US',{year:'numeric', month:'long'})
@@ -42,7 +42,7 @@ block content
                     +tourDetailes('user','Participants',`${tour.maxGroupSize} people`)
                     +tourDetailes('star','Rating',`${tour.ratingsAverage} / 5`)
 
-            .col-md-6
+            .col-md-12
                 .overview-box__group
                     h2.heading-secondary.ma-bt-lg Your tour guides
                     each guide in tour.guides

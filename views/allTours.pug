@@ -13,7 +13,7 @@ block head
     }
 
 block content
-  .container
+  .container.mt-3
     .row
       .col-lg-12
         .main-box.clearfix
@@ -32,8 +32,9 @@ block content
                 each tour in tours  
                   tr
                     td
-                      img(src=`/img/tours/${tour.imageCover}`, alt="Tour Image", class="img-fluid rounded tour-image") 
-                      span.ml-2 #{tour.name}
+                      img(src=`/img/tours/${tour.imageCover}`, alt="Tour Image" class="img-fluid rounded tour-image") 
+                      br
+                      span.mx-3 #{tour.name}
                     - let difficulty = tour.difficulty.toUpperCase()
                     td= difficulty
                     td= tour.maxGroupSize
@@ -41,9 +42,14 @@ block content
                     td= tour.price
                     td= new Date(tour.startDates[0]).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
                     td
-                      a.btn.btn-primary(href=`/tour-info/${tour._id}`, class="btn action-btn")
+                      a.btn.mx-1.btn-primary(href=`/tour-info/${tour._id}`, class="btn action-btn")
                         i.fa.fa-info-circle.mr-1
                         | Details
                       a.btn.btn-danger.table-tour-delete(data-tour-id=`${tour._id}`, class="btn action-btn")
                         i.fa.fa-trash-alt.mr-1
                         | Delete
+
+              if pagination.prevPage
+                a.btn.mt-3.mb-2.mx-1.btn-primary(href=`?page=${pagination.prevPage}&limit=${pagination.limit}`) Privious Page
+              if pagination.nextPage
+                a.btn.mt-3.mb-2.mx-1.btn-success(href=`?page=${pagination.nextPage}&limit=${pagination.limit}`) Next Page  

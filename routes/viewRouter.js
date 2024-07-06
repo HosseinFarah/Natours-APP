@@ -16,8 +16,9 @@ const {
   getAllBookingsByAdmin,
   getBookingInfo,
   getAllToursByAdmin,
-  getTourInfoPageForAdmin
+  getTourInfoPageForAdmin,
 } = require('../controllers/viewController');
+const {getAllTours} = require('./../controllers/tourController')
 const {
   isLoggedIn,
   protect,
@@ -26,23 +27,25 @@ const {
 const { getMyReviews } = require('../controllers/reviewController');
 const router = express.Router();
 
+
 router.get('/', isLoggedIn, getOvewviewPage);
+router.get('/search',getAllTours)
 router.route('/tour/:slug').get(isLoggedIn, getTourDetailes);
 router.get('/login', isLoggedIn, getLoginPage);
-router.get('/signup',getSignUpPage)
-router.get('/me', isLoggedIn,protect, getMe);
+router.get('/signup', getSignUpPage);
+router.get('/me', isLoggedIn, protect, getMe);
 router.get('/manage-users', protect, restrictTo('admin'), getUsersByAdmin);
-router.get('/manage-reviews',protect, getAllReviewsByAdmin);
-router.get('/manage-bookings',protect, getAllBookingsByAdmin);
-router.get('/manage-tours',protect, getAllToursByAdmin);
-router.get('/tour-info/:tourId',protect, getTourInfoPageForAdmin);
-router.get('/booking-info/:bookingId',protect, getBookingInfo);
-router.get('/edit-review/:reviewId',protect, getReviewDetailByAdmin);
+router.get('/manage-reviews', protect, getAllReviewsByAdmin);
+router.get('/manage-bookings', protect, getAllBookingsByAdmin);
+router.get('/manage-tours', protect, getAllToursByAdmin);
+router.get('/tour-info/:tourId', protect, getTourInfoPageForAdmin);
+router.get('/booking-info/:bookingId', protect, getBookingInfo);
+router.get('/edit-review/:reviewId', protect, getReviewDetailByAdmin);
 router.get('/user-info/:userId', protect, restrictTo('admin'), getUserByAdmin);
 router.get('/forgetpassword', getForgetpasswordPage);
 router.get('/resetpassword/:tokenId', getResetPasswordPage);
 
 router.get('/my-bookings', protect, getMyBookings);
 router.get('/my-reviews', protect, getMyReviews);
-router.get('/review/:reviewId',protect, getReviewDetail);
+router.get('/review/:reviewId', protect, getReviewDetail);
 module.exports = router;

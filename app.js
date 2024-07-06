@@ -16,9 +16,13 @@ const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const { webhookCheckout } = require('./controllers/bookingController');
+const morgan = require('morgan');
 
 const app = express();
 
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('short'));
+}
 // Enable compression for response size optimization
 app.use(compression());
 
@@ -55,7 +59,6 @@ app.use(
   }),
 );
 
-
 // Parse cookies
 app.use(cookieParser());
 
@@ -79,7 +82,7 @@ app.use(
 // Configure trusted proxies (specific to your deployment environment, update as necessary)
 app.set('trust proxy', 'loopback');
 // Mongo Sanitizer
-app.use(sanitizer())
+app.use(sanitizer());
 // Rate limiting middleware
 const limiter = rateLimiter({
   max: 200, // Max requests per windowMs

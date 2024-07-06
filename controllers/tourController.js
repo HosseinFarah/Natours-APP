@@ -10,7 +10,8 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
     .fields()
     .filter()
     .paginate()
-    .sort();
+    .sort()
+    .search();
   const tours = await feature.query;
   res.status(200).json({
     status: 'success',

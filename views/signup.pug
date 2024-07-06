@@ -1,21 +1,21 @@
 extends base
 
 block content
-    main.main.col-4.d-flex.align-items-center.justify-content-center.min-vh-100
-        .login-form.text-center  
-            h2.heading-secondary.ma-bt-lg Create new account
-            form.form.form--signUp.form-group.text-left 
-                .form__group.form-group  
-                    label.form__label.form-label(for='name') Fullname
-                    input#name.form-control.form-input(type='text' placeholder='Firstname Lastname', required)  
-                .form__group.form-group
-                    label.form__label.form-label(for='email') Email address
-                    input#email.form-control.form-input(type='email' placeholder='you@example.com', required)
-                .form__group.form-group.ma-bt-md
-                    label.form__label.form-label(for='password') Password
-                    input#password.form-control.form-input(type='password' placeholder='••••••••', required minlength='8')
-                .form__group.form-group.ma-bt-md
-                    label.form__label.form-label(for='passwordConfirm') Confirmation(password)
-                    input#passwordConfirm.form-control.form-input(type='password' placeholder='••••••••', required minlength='8')
-                .form__group.form-group
-                    button.btn.btn--green.btn--signup.btn-primary(type='submit') Signup  
+    main.main.d-flex.align-items-center.justify-content-center.min-vh-100
+        .login-form.text-center.col-12.col-md-6.col-lg-4
+            h2.heading-secondary.mb-4 Create new account
+            form.form.form--signUp
+                .form-group
+                    label.form__label(for='name') Fullname
+                    input#name.form-control(type='text' placeholder='Firstname Lastname', required)  
+                .form-group
+                    label.form__label(for='email') Email address
+                    input#email.form-control(type='email' placeholder='you@example.com', required)
+                .form-group.mb-4
+                    label.form__label(for='password') Password
+                    input#password.form-control(type='password' placeholder='••••••••', required minlength='8')
+                .form-group.mb-4
+                    label.form__label(for='passwordConfirm') Confirmation(password)
+                    input#passwordConfirm.form-control(type='password' placeholder='••••••••', required minlength='8')
+                .form-group
+                    button.btn.btn--green.btn--signup.btn-primary(type='submit') Signup

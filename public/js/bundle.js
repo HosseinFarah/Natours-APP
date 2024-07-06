@@ -30470,4 +30470,3 @@ mapbox-gl/dist/mapbox-gl.js:
    * @version 11.2.6
    *)
 */
-//# sourceMappingURL=bundle.js.map

@@ -14,7 +14,6 @@ block content
                             thead
                                 tr
                                     th User
-                                    th Tour
                                     th Rating
                                     th Review
                                     th Actions
@@ -23,15 +22,19 @@ block content
                                     tr
                                         td
                                             img.img-thumbnail(src=`/img/users/${review.user.photo}`, alt="" class="rounded-circle" style="width: 40px; height: 40px;")
+                                            br
                                             a.user-link(href=`/user-info/${review.user._id}`)= review.user.name
-                                        td= review.tour.name 
                                         td.text-center
                                             span.label.label-info= review.rating
                                         td= review.review
                                         td
-                                            a.btn.btn-primary.table-review(href=`/edit-review/${review._id}`, style="width: 80px;") 
+                                            a.btn.mt-1.btn-primary.table-review(href=`/edit-review/${review._id}`, style="width: 80px;") 
                                                 i.fa.fa-pencil.fa-fw
                                                 |  Edit
-                                            a.btn.btn-danger.table-delete-review(data-review-Id=`${review._id}`, style="width: 80px;") 
+                                            a.btn.mt-1.btn-danger.table-delete-review(data-review-Id=`${review._id}`, style="width: 80px;") 
                                                 i.fa.fa-trash-o.fa-fw
                                                 |  Delete
+                                if pagination.prevPage
+                                    a.btn.btn-primary.mx-1.mt-3.mb-1(href=`?page=${pagination.prevPage}&limit=${pagination.limit}`) Previous Page
+                                if pagination.nextPage
+                                    a.btn.btn-success.mx-1.mt-3.mb-1(href=`?page=${pagination.nextPage}&limit=${pagination.limit}`) Next Page

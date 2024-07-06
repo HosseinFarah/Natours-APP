@@ -4,9 +4,11 @@ const Review = require('./../models/reviewModel');
 const User = require('./../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppErr = require('./../utils/AppErr');
+const APIFeatures = require('../utils/APIFeatures');
 
 exports.getOvewviewPage = catchAsync(async (req, res, next) => {
-  const tours = await Tour.find();
+  const feature = new APIFeatures(Tour.find(), req.query).search();
+  const tours = await feature.query;
   res.status(200).render('overview', {
     title: 'All Tours!',
     tours,
@@ -39,10 +41,24 @@ exports.getMe = (req, res, next) => {
   });
 };
 exports.getUsersByAdmin = catchAsync(async (req, res, next) => {
-  const users = await User.find();
+  const feature = new APIFeatures(User.find(), req.query)
+    .fields()
+    .filter()
+    .search()
+    .sort()
+    .paginate();
+  const users = await feature.query;
+  const page = req.query.page || 1;
+  const limit = req.query.limit || 10;
+
   res.status(200).render('manageUsers', {
     title: 'Manage All Users',
     users,
+    pagination: {
+      nextPage: users.length >= parseInt(page) ? parseInt(page) + 1 : null,
+      prevPage: parseInt(page) - 1 >= 1 ? parseInt(page) - 1 : null,
+      limit: limit,
+    },
   });
 });
 exports.getUserByAdmin = catchAsync(async (req, res, next) => {
@@ -93,18 +109,35 @@ exports.getReviewDetailByAdmin = catchAsync(async (req, res, next) => {
   });
 });
 exports.getAllBookingsByAdmin = catchAsync(async (req, res, next) => {
-  const bookings = await Booking.find();
+  const feature = new APIFeatures(Booking.find(), req.query).paginate();
+  const bookings = await feature.query;
+  const page = req.query.page || 1;
+  const limit = req.query.limit || 10;
   res.status(200).render('manageBookings', {
     title: 'All reserved Bookings',
     bookings,
+    pagination: {
+      nextPage: bookings.length >= parseInt(page) ? parseInt(page) + 1 : null,
+      prevPage: parseInt(page) - 1 >= 1 ? parseInt(page) - 1 : null,
+      limit,
+    },
   });
 });
 
 exports.getAllReviewsByAdmin = catchAsync(async (req, res, next) => {
-  const reviews = await Review.find();
+  const feature = new APIFeatures(Review.find(), req.query).paginate();
+  const reviews = await feature.query;
+  const page = req.query.page || 1;
+  const limit = req.query.limit || 10;
+
   res.status(200).render('manageReviews', {
     title: 'All Reviews',
     reviews,
+    pagination: {
+      nextPage: reviews.length >= parseInt(page) ? parseInt(page) + 1 : null,
+      prevPage: parseInt(page) - 1 >= 1 ? parseInt(page) - 1 : null,
+      limit,
+    },
   });
 });
 
@@ -118,17 +151,25 @@ exports.getBookingInfo = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllToursByAdmin = catchAsync(async (req, res, next) => {
-  const tours = await Tour.find();
+  const feature = new APIFeatures(Tour.find(), req.query);
+  const tours = await feature.query;
+  const page = req.query.page || 1;
+  const limit = req.query.limit || 8;
   res.status(200).render('allTours', {
     title: 'All Tours',
     tours,
+    pagination: {
+      nextPage: tours.length-limit>=page? parseInt(page) + 1:null,
+      prevPage: parseInt(page) - 1 >= 1 ? parseInt(page) - 1 : null,
+      limit,
+    },
   });
 });
-exports.getTourInfoPageForAdmin=catchAsync(async(req,res,next)=>{
-  const tour=await Tour.findById(req.params.tourId)
+exports.getTourInfoPageForAdmin = catchAsync(async (req, res, next) => {
+  const tour = await Tour.findById(req.params.tourId);
   if (!tour) return next(new AppErr('Invalid Tour', 400));
-  res.status(200).render('tourInfo',{
+  res.status(200).render('tourInfo', {
     title: tour.name,
-    tour
-  })
-})
+    tour,
+  });
+});
