@@ -4,14 +4,36 @@ block head
     link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", rel="stylesheet")
     link(href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", rel="stylesheet")
     style.
-        /* Add any additional CSS styles if needed */
+        /* Additional CSS styles */
         .user-list tbody td > img {
-            position: relative;
             max-width: 50px;
-            float: left;
             margin-right: 15px;
         }
-        /* Your existing CSS styles */
+        /* Adjustments for mobile */
+        @media (max-width: 768px) {
+            .user-list tbody td > img {
+                max-width: 100%;
+                float: none;
+                margin-right: 0;
+                margin-bottom: 10px; /* Add space between rows on mobile */
+            }
+            .table.user-list {
+                font-size: 14px; /* Smaller font size for better readability on smaller screens */
+            }
+            .btn.table-booking,
+            .btn.table-booking-delete {
+                display: block;
+                width: 100%;
+                margin-bottom: 5px;
+            }
+            .table.user-list th,
+            .table.user-list td {
+                white-space: nowrap; /* Prevent text wrapping */
+            }
+            .table-responsive {
+                overflow-x: auto; /* Enable horizontal scrolling on smaller screens */
+            }
+        }
 
 block content
     style.
@@ -21,6 +43,12 @@ block content
         .table.user-list {
             font-size: 15px;
         }
+        /* Adjustments for mobile */
+        @media (max-width: 768px) {
+            .table.user-list {
+                font-size: 14px; /* Smaller font size for better readability on smaller screens */
+            }
+        }
     .container.mt-3
         .row
             .col-lg-12
@@ -29,14 +57,14 @@ block content
                         table.table.table-bordered.user-list   
                             thead.thead-dark   
                                 tr
-                                    th(scope="col") BookingId    
-                                    th(scope="col") tourname
+                                    th(scope="col") Booking ID    
+                                    th(scope="col") Tour Name
                                     th(scope="col") User
                                     th(scope="col") Price
                                     th(scope="col") Booking Date
                                     th(scope="col", class="text-center") Active   
                                     th(scope="col") Email
-                                    th(scope="col") &nbsp;
+                                    th(scope="col") Actions
                             tbody
                                 each booking in bookings  
                                     tr
@@ -44,7 +72,7 @@ block content
                                         td= booking.tour.name   
                                         td
                                             img.img-fluid(src=`/img/users/${booking.user.photo}`, alt="")   
-                                            a.user-link= booking.user.name
+                                            a.user-link(href=`#`) #{booking.user.name}
                                         td= booking.price      
                                         td= new Date(booking.createdAt).toLocaleString('en-US', { hour12: true }) 
                                         td.text-center
@@ -53,7 +81,7 @@ block content
                                         td
                                             a.btn.btn-primary.table-booking(href=`/booking-info/${booking._id}`)  
                                                 span.fa.fa-pencil.fa-inverse
-                                            a.btn.btn-danger.table-booking-delete(data-booking-Id=`${booking._id}`)   
+                                            a.btn.btn-danger.table-booking-delete(data-booking-id=`${booking._id}`)   
                                                 span.fa.fa-trash-o.fa-inverse
                             if pagination.prevPage 
                                a.btn.btn-primary.mt-2.mx-1.mb-2(href=`?page=${pagination.prevPage}&limit=${pagination.limit}`) Previous Page

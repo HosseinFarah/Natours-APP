@@ -1,8 +1,27 @@
 extends base
+
 block content
     style.
         .hidden {
             visibility: hidden;
+        }
+        @media (max-width: 768px) {
+            .table th, .table td {
+                display: block;
+                width: 100%;
+            }
+            .table thead {
+                display: none;
+            }
+            .table .user-link {
+                display: block;
+                margin-top: 0.5rem;
+            }
+            .table .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
         }
     .container
         .row
@@ -29,15 +48,16 @@ block content
                                             span.badge.badge-success= `${user.active ? 'Active' : 'Inactive'}`
                                         td= user.email
                                         td= user._id
-                                        td(style="width: 20%;")
+                                        td
                                             a.btn.btn-primary.table-link(href=`/user-info/${user._id}`)
                                                 i.fa.fa-pencil-alt.fa-lg
                                                 | Edit
                                             a.btn.btn-danger.mx-1.table-link.danger(data-user-Id=`${user._id}`)
                                                 i.fa.fa-trash-alt.fa-lg
                                                 | Delete
-                            // Pagination Links
-                            if pagination.prevPage
-                                a.btn.btn-primary.mt-3.mb-1.mx-1(href=`?page=${pagination.prevPage}&limit=${pagination.limit}`) Previous Page
-                            if pagination.nextPage
-                                a.btn.btn-success.mt-3.mb-1(href=`?page=${pagination.nextPage}&limit=${pagination.limit}`) Next Page
+                    // Pagination Links
+                    .pagination-links.mt-3.mb-1
+                        if pagination.prevPage
+                            a.btn.btn-primary.mt-1.mb-1.mx-1(href=`?page=${pagination.prevPage}&limit=${pagination.limit}`) Previous Page
+                        if pagination.nextPage
+                            a.btn.btn-success.mt-1.mb-1(href=`?page=${pagination.nextPage}&limit=${pagination.limit}`) Next Page
