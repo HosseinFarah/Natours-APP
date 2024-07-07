@@ -11,9 +11,9 @@ Built using modern technologies: nodejs,express,mongoDB,mongoose,stripe,nodemail
 `*`Authentication and Authorization
 `-`Sign up, Log in, Logout, Update, forgot passworw and reset password.
 `+`User profile
-Update username, photo, email, password, and other information
-A user can be either a regular user or an admin or a lead guide or a guide.
-When a user signs up, that user by default regular user.
+`-`Update username, photo, email, password, and other information
+`-` A user can be either a regular user or an admin or a lead guide or a guide.
+`-` When a user signs up, that user by default regular user.
 Tour
 Manage booking, check tour map, check users' reviews and rating
 Tours can be created by an admin user or a lead-guide.
