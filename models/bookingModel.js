@@ -23,8 +23,8 @@ const bookingSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-/*   fingerprint: String, */
 });
+bookingSchema.index({user:1,tour:1},{unique:true})
 bookingSchema.pre(/^find/, function (next) {
   this.populate('tour').populate('user');
   next();

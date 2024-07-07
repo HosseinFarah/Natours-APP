@@ -25,7 +25,7 @@ const sendErrDev = (req, err, res) => {
   } else {
     res.status(err.statusCode).render('error', {
       title: 'Somthing went wrong!',
-      message: err.message,
+      message: err.stack,
     });
   }
 };

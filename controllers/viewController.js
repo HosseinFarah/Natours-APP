@@ -15,13 +15,22 @@ exports.getOvewviewPage = catchAsync(async (req, res, next) => {
   });
 });
 exports.getTourDetailes = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findOne({ slug: req.params.slug }).populate(
-    'Reviews',
-  );
+  const tour = await Tour.findOne({ slug: req.params.slug })
+    .populate('Bookings')
+    .populate('Reviews');
+  let reviewUser;
+  let bookedUser;
+  if (res.locals.user) {
+    bookedUser = tour.Bookings.find((el) => el.user.id === res.locals.user.id);
+    reviewUser = tour.Reviews.find((el) => el.user.id === res.locals.user.id);
+  }
+
   if (!tour) return next(new AppErr('Invalid tour name!', 400));
   res.status(200).render('tour', {
     title: tour.name,
     tour,
+    bookedUser,
+    reviewUser,
   });
 });
 exports.getLoginPage = (req, res, next) => {

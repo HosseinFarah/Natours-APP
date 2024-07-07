@@ -92,7 +92,7 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 9999;
-    color: #fff;
+    color: #0d5481;
     font-size: 1.8rem;
     font-weight: 400;
     text-align: center;
@@ -680,15 +680,15 @@
   .section-cta {
     margin-top: calc(0px - var(--section-rotate));
     padding: 3rem;
-    padding-bottom: 11rem;
-    padding-top: calc(15rem + var(--section-rotate));
+    /* padding-bottom: 11rem; */
+    padding-top: calc(-12rem + var(--section-rotate));
     background-color: #f7f7f7 !important;
   }
   
   .cta {
     position: relative;
-    max-width: 105rem;
-    margin: 0 auto;
+    /* max-width: 105rem; */
+    margin: 0 ;
     overflow: hidden;
     background-color: #fff;
     padding: 9rem 5rem 9rem 21rem;

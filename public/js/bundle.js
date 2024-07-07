@@ -30086,7 +30086,9 @@ ${o2.vertexSource}`;
       });
       if (res.data.status === "success") {
         showAlert("success", "User Successfully added");
-        location.reload(true);
+        windows.setTimeout(() => {
+          location.reload(true);
+        }, 2e3);
       }
     } catch (err) {
       showAlert("error", err.response.data.message);
@@ -30207,6 +30209,27 @@ ${o2.vertexSource}`;
         window.setTimeout(() => {
           location.reload(true);
         }, 1e3);
+      }
+    } catch (err) {
+      showAlert("error", err.response.data.message);
+    }
+  };
+  var createNewReviewByBookedUser = async (review, rating, tour) => {
+    try {
+      const res = await axios_default({
+        method: "post",
+        url: `/api/v1/reviews/`,
+        data: {
+          review,
+          rating,
+          tour
+        }
+      });
+      if (res.data.status === "success") {
+        showAlert("success", "Review successfully submited!");
+        window.setInterval(() => {
+          location.reload(true);
+        }, 2e3);
       }
     } catch (err) {
       showAlert("error", err.response.data.message);
@@ -30484,6 +30507,19 @@ ${o2.vertexSource}`;
       });
     }
   });
+  var reviewFormByBookedUser = document.querySelector(
+    ".form-bookedUser-review"
+  );
+  if (reviewFormByBookedUser) {
+    reviewFormByBookedUser.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const review = document.getElementById("comment").value;
+      const rating = document.getElementById("rating").value;
+      const tourId = document.querySelector(".tourId").innerHTML;
+      console.log(review, rating, tourId);
+      await createNewReviewByBookedUser(review, rating, tourId);
+    });
+  }
   var locations = JSON.parse(
     document.querySelector(".map-data").dataset.locations
   );

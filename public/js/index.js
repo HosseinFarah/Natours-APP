@@ -9,7 +9,11 @@ import {
 import { adminController, DeleteUserByAdmin } from './updateUser';
 import { showMap } from './mapbox';
 import { bookTour } from './bookTour';
-import { deleteReview, updateReview } from './myReviews';
+import {
+  deleteReview,
+  updateReview,
+  createNewReviewByBookedUser,
+} from './myReviews';
 import { deleteReviewsByAdmin } from './manageReviews';
 import { deleteBooking } from './manageBookings';
 import { deleteTourByAdmin } from './manageTours';
@@ -52,7 +56,7 @@ if (createForm) {
       password,
       passwordConfirm,
     };
-    await createNewUserByAdmin(data)
+    await createNewUserByAdmin(data);
   });
 }
 
@@ -267,6 +271,20 @@ deleteReviewBtns.forEach((deleteBtn) => {
     });
   }
 });
+
+// Create Review
+const reviewFormByBookedUser = document.querySelector(
+  '.form-bookedUser-review',
+);
+if (reviewFormByBookedUser) {
+  reviewFormByBookedUser.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const review = document.getElementById('comment').value;
+    const rating = document.getElementById('rating').value;
+    const  tourId = document.querySelector('.tourId').innerHTML;
+    await createNewReviewByBookedUser(review, rating, tourId);
+  });
+}
 
 //showMap
 const locations = JSON.parse(

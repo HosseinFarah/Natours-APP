@@ -40,3 +40,29 @@ export const deleteReview = async (reviewId) => {
     showAlert('error', err.response.data.message);
   }
 };
+
+export const createNewReviewByBookedUser = async (
+  review,
+  rating,
+  tour,
+) => {
+  try {
+    const res = await axios({
+      method: 'post',
+      url: `/api/v1/reviews/`,
+      data: {
+        review,
+        rating,
+        tour
+      },
+    });
+    if (res.data.status === 'success') {
+      showAlert('success', 'Review successfully submited!');
+      window.setInterval(() => {
+        location.reload(true);
+      }, 2000);
+    }
+  } catch (err) {
+    showAlert('error', err.response.data.message);
+  }
+};

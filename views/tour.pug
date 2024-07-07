@@ -19,6 +19,17 @@ block head
 
 
 block content
+    style.
+      .gradient-bg {
+        background: linear-gradient(to right, green, blue);
+        color: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+      }
+      .hidden{
+        visibility:hidden
+      }
     section.section-header
         .header__hero
             .header__hero-overlay &nbsp;
@@ -85,16 +96,47 @@ block content
                                 use(xlink:href='/img/icons.svg#icon-star')
 
     section.section-cta.container.mt-5
-        .cta.text-center
-            .cta__img.cta__img--logo
-                img(src='/img/logo-white.png' alt='Natours logo')
-            .d-flex.justify-content-center.mb-4
-                img.cta__img.cta__img--1(src=`/img/tours/${tour.images[0]}` alt=`${tour.images}`)
-                img.cta__img.cta__img--2(src=`/img/tours/${tour.images[1]}` alt=`${tour.images}`)
-            .cta__content
+    .cta.text-center
+        .cta__img.cta__img--logo
+            img(src='/img/logo-white.png' alt='Natours logo')
+        .d-flex.justify-content-center.mb-4
+            img.cta__img.cta__img--1(src=`/img/tours/${tour.images[0]}` alt=`${tour.images}`)
+            img.cta__img.cta__img--2(src=`/img/tours/${tour.images[1]}` alt=`${tour.images}`)
+        .cta__content
+            if user
+                if bookedUser
+                    //-if String(bookedUser.user.id )===String(user._id)
+                    p.cta__text.gradient-bg= `This tour was purchased by you at ${bookedUser.createdAt.toLocaleDateString('en-US',{hour12:true})}`
+                    .d-flex.justify-content-center
+                        .col-md-8.col-lg-6
+                            if !reviewUser
+                                form.form-styled.form-bookedUser-review
+                                    style.
+                                        .form-styled {
+                                            font-size: 18px;
+                                        }
+                                    .form-group
+                                        label(for='comment') Your Comment
+                                        textarea.form-control#comment.form-styled(rows='5', placeholder='Enter your comment')
+                                    .form-group
+                                        label(for='rating') Rating
+                                        select.form-control#rating.form-styled(name='rating')
+                                            option(value='1') 1
+                                            option(value='1.5') 1.5
+                                            option(value='2') 2
+                                            option(value='2.5') 2.5
+                                            option(value='3') 3
+                                            option(value='3.5') 3.5
+                                            option(value='4') 4
+                                            option(value='4.5') 4.5
+                                            option(value='5') 5
+                                    p.tourId.hidden= bookedUser.tour.id
+                                    button.btn.btn-primary.btn-block.mt-3 Submit
+                else
+                    h2.heading-secondary What are you waiting for?
+                    p.cta__text= `${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`        
+                    button.btn.btn--green.btn-lg#book-tour(data-tour-Id=`${tour._id}`) Book tour now!
+            else
                 h2.heading-secondary What are you waiting for?
                 p.cta__text= `${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`
-                if user
-                    button.btn.btn--green.btn-lg#book-tour(data-tour-Id=`${tour._id}`) Book tour now!
-                else    
-                    a.btn.btn--green.btn-lg(href='/login') Log in to book this tour!
+                a.btn.btn--green.btn-lg(href='/login') Log in to book this tour!
