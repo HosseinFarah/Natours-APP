@@ -110,7 +110,7 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
 exports.getTopTours = (req, res, next) => {
   req.query.limit = '5';
   req.query.sort = '-ratingsAverage,price';
-  req.query.fields = 'name,duration,price,ratingsAverage';
+  req.query.fields = 'name,price,ratingsAverage,-_id';
   next();
 };
 

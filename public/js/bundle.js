@@ -30516,7 +30516,6 @@ ${o2.vertexSource}`;
       const review = document.getElementById("comment").value;
       const rating = document.getElementById("rating").value;
       const tourId = document.querySelector(".tourId").innerHTML;
-      console.log(review, rating, tourId);
       await createNewReviewByBookedUser(review, rating, tourId);
     });
   }

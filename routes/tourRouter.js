@@ -24,6 +24,6 @@ router.get('/distance/:latlng/unit/:unit', toursDistance);
 router.get('/top-5-tour', getTopTours, getAllTours);
 router.get('/tour-stats', getToursStats);
 router.get('/tour-plan/:year', getToursMonthlyPlan);
-router.route('/').get(protect,getAllTours).post(protect,restrictTo('admin'),newTour);
+router.route('/').get(getAllTours).post(protect,restrictTo('admin'),newTour);
 router.route('/:id').get(protect,restrictTo('admin'),getTour).patch(protect,restrictTo('admin','lead-guide'),uploadTourImages,resizeUploadTourImages,updateTour).delete(protect,restrictTo('admin'),deleteTour);
 module.exports = router;
