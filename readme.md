@@ -3,7 +3,7 @@ Built using modern technologies: nodejs,express,mongoDB,mongoose,stripe,nodemail
 # Welcome to Natours App
 
 Built using modern technologies: Nodejs,Express,MongoDB and etc with ❤️
-
+“The application has been uploaded to the free server and it will take some time to redeploy. Thanks"
 
 # Demo link
 
