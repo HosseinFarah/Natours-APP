@@ -19,7 +19,7 @@ const {
   getTourInfoPageForAdmin,
   getNewUserPage,
 } = require('../controllers/viewController');
-const { getAllTours } = require('./../controllers/tourController');
+const { getAllTours, getTopTours } = require('./../controllers/tourController');
 const {
   isLoggedIn,
   protect,
@@ -29,7 +29,7 @@ const { getMyReviews } = require('../controllers/reviewController');
 const router = express.Router();
 
 router.get('/', isLoggedIn, getOvewviewPage);
-router.get('/search', getAllTours);
+router.get('/top-tours',isLoggedIn,getTopTours,getOvewviewPage)
 router.route('/tour/:slug').get(isLoggedIn, getTourDetailes);
 router.get('/login', isLoggedIn, getLoginPage);
 router.get('/signup', getSignUpPage);

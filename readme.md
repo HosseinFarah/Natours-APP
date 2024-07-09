@@ -1,9 +1,6 @@
-#Natours Application
-Built using modern technologies: nodejs,express,mongoDB,mongoose,stripe,nodemailer and etc with ❤️
 # Welcome to Natours App
 
 Built using modern technologies: Nodejs,Express,MongoDB and etc with ❤️
-
 
 # Demo link
 

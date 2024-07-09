@@ -60,15 +60,14 @@ block content
         }
 
     .main
-        .container
+        .container   
             .row
-                .col-md-12.mb-3
-                    form(action="/" method="GET" class="my-4")
+                .col-md-7.mt-3                    
+                    .btn-grou
+                        a.btn.btn-outline-info.mx-1.mb-4(href='?sort=price') Sort by Price
+                        a.btn.btn-outline-info.mx-1.mb-4(href="?sort=-ratingsAverage") Sort by Rating
+                        a.btn.btn-outline-info.mx-1.mb-4(href='/top-tours') top 5 tours
 
-                        .input-group
-                            input.form-control#search(type="text" name="search" placeholder="Search tour...")
-                            .input-group-append
-                                button.btn.btn-primary.btn-search(type="submit") Search
 
         .card-container
             each tour, index in tours

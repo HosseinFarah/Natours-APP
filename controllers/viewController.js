@@ -7,11 +7,17 @@ const AppErr = require('./../utils/AppErr');
 const APIFeatures = require('../utils/APIFeatures');
 
 exports.getOvewviewPage = catchAsync(async (req, res, next) => {
-  const feature = new APIFeatures(Tour.find(), req.query).search();
+  const feature = new APIFeatures(Tour.find(), req.query)
+    .search()
+    .sort()
+    .fields()
+    .paginate()
+    .sort();
   const tours = await feature.query;
   res.status(200).render('overview', {
     title: 'All Tours!',
     tours,
+    currentPath :req.path
   });
 });
 exports.getTourDetailes = catchAsync(async (req, res, next) => {

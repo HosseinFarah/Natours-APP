@@ -6,15 +6,23 @@ header
         }
         
     nav.navbar.navbar-expand-lg.navbar-light(style="background-color: #1ca962 !important;")
+        form(action="/" method="GET" class="my-4")
+            .input-group
+                input.form-control#search(type="text" name="search" placeholder="Search tour...")
+                .input-group-append
+                    button.btn.btn-search(type="submit") 
+                        i.fa.fa-search
         .container
             a.header__logo(href='/')
                 img.header__logo-img(src='/img/logo-green-round.png' alt='Natours logo' style="height: 2.5rem;")
             button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
                 span.navbar-toggler-icon
+               
             .collapse.navbar-collapse#navbarNav
                 ul.navbar-nav.mr-auto
                     li.nav-item
                         a.nav-link(href='/') All tours
+
                 ul.navbar-nav.ml-auto.nav.nav--user
                     if user
                         li.nav-item
@@ -28,3 +36,5 @@ header
                             a.nav-link.nav__el(href='/login' style="background-color: #fff; color: #1ca962;") Log in
                         li.nav-item
                             a.nav-link.nav__el.nav__el--cta(href='/signup' style="background-color: #fff; color: #1ca962;") Sign up
+block head 
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")
