@@ -14,10 +14,17 @@ exports.getOvewviewPage = catchAsync(async (req, res, next) => {
     .paginate()
     .sort();
   const tours = await feature.query;
+  const page = req.query.page || 1;
+  const limit = req.query.limit || 5;
   res.status(200).render('overview', {
     title: 'All Tours!',
     tours,
-    currentPath :req.path
+    currentPath: req.path,
+    pagination: {
+      nextPage: tours.length>=limit*page ? parseInt(page) + 1:null ,
+      prevPage: parseInt(page - 1) >= 1 ? parseInt(page - 1) : null,
+      limit,
+    }
   });
 });
 exports.getTourDetailes = catchAsync(async (req, res, next) => {
@@ -70,7 +77,7 @@ exports.getUsersByAdmin = catchAsync(async (req, res, next) => {
     title: 'Manage All Users',
     users,
     pagination: {
-      nextPage: users.length >= parseInt(page) ? parseInt(page) + 1 : null,
+      nextPage: users.length>=limit ? parseInt(page) + 1 : null,
       prevPage: parseInt(page) - 1 >= 1 ? parseInt(page) - 1 : null,
       limit: limit,
     },
@@ -132,7 +139,7 @@ exports.getAllBookingsByAdmin = catchAsync(async (req, res, next) => {
     title: 'All reserved Bookings',
     bookings,
     pagination: {
-      nextPage: bookings.length >= parseInt(page) ? parseInt(page) + 1 : null,
+      nextPage: bookings.length >= limit ? parseInt(page) + 1 : null,
       prevPage: parseInt(page) - 1 >= 1 ? parseInt(page) - 1 : null,
       limit,
     },
@@ -144,12 +151,11 @@ exports.getAllReviewsByAdmin = catchAsync(async (req, res, next) => {
   const reviews = await feature.query;
   const page = req.query.page || 1;
   const limit = req.query.limit || 10;
-
   res.status(200).render('manageReviews', {
     title: 'All Reviews',
     reviews,
     pagination: {
-      nextPage: reviews.length >= parseInt(page) ? parseInt(page) + 1 : null,
+      nextPage: reviews.length >= limit ? parseInt(page) + 1 : null,
       prevPage: parseInt(page) - 1 >= 1 ? parseInt(page) - 1 : null,
       limit,
     },
@@ -174,7 +180,7 @@ exports.getAllToursByAdmin = catchAsync(async (req, res, next) => {
     title: 'All Tours',
     tours,
     pagination: {
-      nextPage: tours.length - limit >= page ? parseInt(page) + 1 : null,
+      nextPage: tours.length >= page*limit ? parseInt(page) + 1 : null,
       prevPage: parseInt(page) - 1 >= 1 ? parseInt(page) - 1 : null,
       limit,
     },

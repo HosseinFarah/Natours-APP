@@ -48,6 +48,6 @@ block content
                                                 i.fa.fa-trash-o.fa-fw
                                                 |  Delete
                                 if pagination.prevPage
-                                    a.btn.btn-primary.mx-1.mt-3.mb-1(href=`?page=${pagination.prevPage}&limit=${pagination.limit}`) Previous Page
+                                    a.btn.btn-primary.mx-1.mt-3.mb-1(href=`?page=${pagination.prevPage}&limit=${pagination.limit}`)=`Previos Page(${pagination.prevPage})`
                                 if pagination.nextPage
-                                    a.btn.btn-success.mx-1.mt-3.mb-1(href=`?page=${pagination.nextPage}&limit=${pagination.limit}`) Next Page
+                                    a.btn.btn-success.mx-1.mt-3.mb-1(href=`?page=${pagination.nextPage}&limit=${pagination.limit}`)=`Next Page(${pagination.nextPage})`
