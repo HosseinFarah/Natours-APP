@@ -170,18 +170,22 @@
   .heading-primary {
     font-size: 5rem;
     text-align: center;
-    width: 70%;
     margin: 0 auto;
   }
   
   .heading-tertirary {
-    font-size: 2.75rem;
+    font-size: 1.75rem;
+    color: #fff;
     text-align: right;
     position: absolute;
-    bottom: 1rem;
-    right: 2rem;
-    width: 70%;
+    top: 20%;
+    transform: translateY(-125%);
     z-index: 10;
+    padding: 1rem 1.5rem;
+    line-height: 1;
+    -webkit-box-decoration-break: clone;
+    background-image: linear-gradient(to bottom right, rgba(125, 213, 111, 0.85), rgba(40, 180, 135, 0.85));
+    transition: background-image 0.3s ease;
   }
   
   .btn,
