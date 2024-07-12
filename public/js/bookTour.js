@@ -14,6 +14,6 @@ export const bookTour = async (tourId) => {
       sessionId: session.data.data.session.id,
     });
   } catch (err) {
-    showAlert('error', err);
+    showAlert('danger', err);
   }
 };

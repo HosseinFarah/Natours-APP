@@ -16,7 +16,94 @@ import {
 } from './myReviews';
 import { deleteReviewsByAdmin } from './manageReviews';
 import { deleteBooking } from './manageBookings';
-import { deleteTourByAdmin } from './manageTours';
+import { deleteTourByAdmin, createNewTour } from './manageTours';
+
+///Create New Tour With add Dynamically Locations with jquery
+import $ from 'jquery';
+
+let locationIndex = 1;
+$(document).ready(function () {
+  $('#addLocation').on('click', function () {
+    const locationHtml = `
+      <div class="form-group locations-group">
+        <label for="locations-${locationIndex}">Location ${locationIndex + 1}:</label>
+        <input id="locdescription-${locationIndex}" class="form-control" type="text" name="locations[${locationIndex}][description]" placeholder="Description">
+        <input id="loctype-${locationIndex}" class="form-control" type="text" name="locations[${locationIndex}][type]" value="Point" readonly style="display:none;">
+        <input id="loclat-${locationIndex}" class="form-control" type="text" name="locations[${locationIndex}][coordinates][0]" placeholder="Latitude">
+        <input id="loclng-${locationIndex}" class="form-control" type="text" name="locations[${locationIndex}][coordinates][1]" placeholder="Longitude">
+        <input id="locday-${locationIndex}" class="form-control" type="number" name="locations[${locationIndex}][day]" placeholder="Day">
+      </div>
+    `;
+
+    $('.locations-container').append(locationHtml);
+    locationIndex++;
+  });
+});
+
+// Create New Tour
+const newTourForm = document.getElementById('newTour');
+if (newTourForm) {
+  newTourForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const duration = document.getElementById('duration').value;
+    const maxGroupSize = parseInt(
+      document.getElementById('maxGroupSize').value,
+    );
+    const difficulty = document.getElementById('difficulty').value;
+    const price = parseInt(document.getElementById('price').value);
+    const summary = document.getElementById('summary').value;
+    const description = document.getElementById('description').value;
+    const imageCover = document.getElementById('imageCover').files[0];
+    const images = Array.from(document.getElementById('images').files); // Convert the FileList to an array
+
+    const tourDatesInput = document
+      .getElementById('startDates')
+      .value.split(',');
+    const startDates = tourDatesInput.map((date) => new Date(date.trim()));
+
+    const startLocation = {
+      description: document.getElementById('stdescription').value,
+      type: 'Point',
+      coordinates: [
+        parseFloat(document.getElementById('stlat').value),
+        parseFloat(document.getElementById('stlng').value),
+      ],
+      address: document.getElementById('staddress').value,
+    };
+
+    const locations = [];
+    for (let i = 0; i < locationIndex; i++) {
+      const description = document.getElementById(`locdescription-${i}`);
+      const lat = document.getElementById(`loclat-${i}`);
+      const lng = document.getElementById(`loclng-${i}`);
+      const day = document.getElementById(`locday-${i}`);
+      if (description && lat && lng && day) {
+        locations.push({
+          description: description.value,
+          type: 'Point',
+          coordinates: [parseFloat(lat.value), parseFloat(lng.value)],
+          day: parseInt(day.value),
+        });
+      }
+    }
+
+    await createNewTour(
+      name,
+      duration,
+      maxGroupSize,
+      difficulty,
+      price,
+      summary,
+      description,
+      imageCover,
+      images,
+      startLocation,
+      startDates,
+      locations
+    );
+  });
+}
 
 //signup
 const signupForm = document.querySelector('.form--signUp');
@@ -281,7 +368,7 @@ if (reviewFormByBookedUser) {
     e.preventDefault();
     const review = document.getElementById('comment').value;
     const rating = document.getElementById('rating').value;
-    const  tourId = document.querySelector('.tourId').innerHTML;
+    const tourId = document.querySelector('.tourId').innerHTML;
     await createNewReviewByBookedUser(review, rating, tourId);
   });
 }

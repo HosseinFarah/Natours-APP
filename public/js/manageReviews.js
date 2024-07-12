@@ -15,6 +15,6 @@ export const deleteReviewsByAdmin = async (reviewId) => {
       }, 1000);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };

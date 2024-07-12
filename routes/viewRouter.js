@@ -18,6 +18,7 @@ const {
   getAllToursByAdmin,
   getTourInfoPageForAdmin,
   getNewUserPage,
+  getCreateNewTourPage
 } = require('../controllers/viewController');
 const { getAllTours, getTopTours } = require('./../controllers/tourController');
 const {
@@ -38,6 +39,8 @@ router.get('/manage-users', protect, restrictTo('admin'), getUsersByAdmin);
 router.get('/manage-reviews', protect, getAllReviewsByAdmin);
 router.get('/manage-bookings', protect, getAllBookingsByAdmin);
 router.get('/create-new-user', protect, restrictTo('admin'), getNewUserPage);
+router.get('/new-tour', protect, restrictTo('admin'), getCreateNewTourPage);
+
 
 router.get('/manage-tours', protect, getAllToursByAdmin);
 router.get('/tour-info/:tourId', protect, getTourInfoPageForAdmin);

@@ -16,7 +16,7 @@ export const adminController = async (userId, data) => {
       }, 500);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };
 
@@ -33,6 +33,6 @@ export const DeleteUserByAdmin = async (userId) => {
       }, 500);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };

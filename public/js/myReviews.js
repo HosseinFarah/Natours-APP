@@ -20,7 +20,7 @@ export const updateReview = async (review, rating, tour, reviewId) => {
       }, 1000);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };
 
@@ -37,7 +37,7 @@ export const deleteReview = async (reviewId) => {
       }, 1000);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };
 
@@ -63,6 +63,6 @@ export const createNewReviewByBookedUser = async (
       }, 2000);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };

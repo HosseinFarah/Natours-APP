@@ -20,7 +20,7 @@ export const userSettings = async (type, data) => {
       }, 500);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };
 
@@ -40,7 +40,7 @@ export const forgetPassword = async (email) => {
       }, 1000);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };
 
@@ -62,7 +62,7 @@ export const resetPassword = async (data, tokenId) => {
       }, 1500);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };
 
@@ -80,6 +80,6 @@ export const createNewUserByAdmin = async (data) => {
       }, 2000);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };

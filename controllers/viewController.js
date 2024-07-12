@@ -199,3 +199,8 @@ exports.getNewUserPage = (req, res, next) => {
     title: 'Create New User',
   });
 };
+exports.getCreateNewTourPage=(req,res,next)=>{
+  res.status(200).render('newTour',{
+    title:'Create new tour'
+  })
+}
