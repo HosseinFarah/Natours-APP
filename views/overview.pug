@@ -82,14 +82,14 @@ block content
                                             .heading-tertirary
                                                 span= `${tourCol.name} Tour`
 
-                                    .card-body
-                                        .row.d-flex.flex-row.justify-content-start
+                                    .card-body.d-flex.flex-column.align-items-center
+                                        .row.align-self-start 
                                             .col
                                                 p.text-uppercase.fs-2= `${tourCol.difficulty} ${tourCol.duration}-Day Tour`
-                                        .row.d-flex.flex-row.justify-content-start
+                                        .row.align-self-start 
                                             .col
                                                 p.text-start= tourCol.summary
-                                        .row.d-flex.flex-column.align-items-start
+                                        .row.align-self-start.w-100
                                             .col
                                                 svg.fst-normal.fs-4.text-success.mx-2(width='25px' height='25px' fill='#55C57A')
                                                     use(xlink:href=`/img/icons.svg#icon-map-pin`)
@@ -100,7 +100,7 @@ block content
                                                     use(xlink:href=`/img/icons.svg#icon-calendar`)
                                                     span.text-secondary=`${date}`
 
-                                        .row.d-flex.flex-column.align-items-start
+                                        .row.align-self-start.w-100 
                                             .col
                                                 svg.fst-normal.fs-4.text-success.mx-2(width='25px' height='25px' fill='#55C57A')
                                                     use(xlink:href=`/img/icons.svg#icon-flag`)
