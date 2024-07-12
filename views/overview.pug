@@ -71,7 +71,7 @@ block content
         .container-fluid
             each tour, index in tours
                 if index % 3 === 0
-                    .row.mb-3
+                    .row.mt-5
                         each tourCol in tours.slice(index, index + 3)
                             .col-lg-4
                                 .card.mb-3(style='height: 100%;')
@@ -83,14 +83,14 @@ block content
                                                 span= `${tourCol.name} Tour`
 
                                     .card-body
-                                        .row
+                                        .row.d-flex.flex-row.justify-content-start
                                             .col
                                                 p.text-uppercase.fs-2= `${tourCol.difficulty} ${tourCol.duration}-Day Tour`
-                                        .row
+                                        .row.d-flex.flex-row.justify-content-start
                                             .col
                                                 p.text-start= tourCol.summary
-                                        .row
-                                            .col.ms-5
+                                        .row.d-flex.flex-column.align-items-start
+                                            .col
                                                 svg.fst-normal.fs-4.text-success.mx-2(width='25px' height='25px' fill='#55C57A')
                                                     use(xlink:href=`/img/icons.svg#icon-map-pin`)
                                                     span.text-secondary=`${tourCol.startLocation.description}`
@@ -100,8 +100,8 @@ block content
                                                     use(xlink:href=`/img/icons.svg#icon-calendar`)
                                                     span.text-secondary=`${date}`
 
-                                        .row.mt-3
-                                            .col.ms-5
+                                        .row.d-flex.flex-column.align-items-start
+                                            .col
                                                 svg.fst-normal.fs-4.text-success.mx-2(width='25px' height='25px' fill='#55C57A')
                                                     use(xlink:href=`/img/icons.svg#icon-flag`)
                                                     span.text-secondary=`${tourCol.locations.length} stops`
